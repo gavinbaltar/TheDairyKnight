@@ -42,6 +42,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private AudioClip unitAttack;
     [SerializeField] private AudioClip playerBlock;
     [SerializeField] private AudioClip playerHeal;
+
     private GameObject player;
     private GameObject enemy;
 
@@ -178,7 +179,10 @@ public class BattleSystem : MonoBehaviour
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
         enemyHUD.SetHP(enemyUnit.currentHP);
 
-        SoundFXManager.instance.PlaySoundSFXClip(unitAttack, enemyBattleStation, 10f);
+        if (unitAttack)
+        {
+            SoundFXManager.instance.PlaySoundSFXClip(unitAttack, enemyBattleStation, 10f);
+        }
 
         yield return new WaitForSeconds(0.5f);
 
@@ -210,8 +214,10 @@ public class BattleSystem : MonoBehaviour
 
         else
         {
-            SoundFXManager.instance.PlaySoundSFXClip(playerHeal,
-            playerBattleStation, 10f);
+            if (playerHeal)
+            {
+                SoundFXManager.instance.PlaySoundSFXClip(playerHeal, playerBattleStation, 10f);
+            }
 
             playerHUD.SetHP(playerUnit.currentHP);
             playerHUD.SetMP(playerUnit.currentMP);
@@ -248,11 +254,17 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        SoundFXManager.instance.PlaySoundSFXClip(unitAttack, playerBattleStation, 10f);
+        if (unitAttack)
+        {
+            SoundFXManager.instance.PlaySoundSFXClip(unitAttack, playerBattleStation, 10f);
+        }
 
         if (playerUnit.isDefending)
         {
-            SoundFXManager.instance.PlaySoundSFXClip(playerBlock, playerBattleStation, 10f);
+            if (playerBlock)
+            {
+                SoundFXManager.instance.PlaySoundSFXClip(playerBlock, playerBattleStation, 10f);
+            }
 
             dialogueText.text = playerUnit.unitName + " defended against the blow!";
 

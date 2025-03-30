@@ -59,7 +59,7 @@ public class Unit : MonoBehaviour
         // If a fully fledged game I would check to see if there's a status effect here preventing guard or something but there isn't
         currentMP += maxMP / 10; // Restore a tenth of mana, random arbitrary number.
 
-        if (currentMP > maxHP)
+        if (currentMP > maxMP)
             currentMP = maxMP;
 
         isDefending = true;

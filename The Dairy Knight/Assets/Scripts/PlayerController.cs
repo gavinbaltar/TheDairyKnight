@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         } else if (Input.GetKeyDown(KeyCode.C)) {
             // Shows/Hides Instructions 
-            instructions.gameObject.SetActive(!instructions.gameObject.active);
+            instructions.gameObject.SetActive(!instructions.gameObject.activeSelf);
         }
     }
 }

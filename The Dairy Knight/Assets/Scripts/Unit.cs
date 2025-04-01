@@ -11,6 +11,13 @@ using UnityEngine;
 */
 public class Unit : MonoBehaviour
 {
+    public enum WeaponType
+    {
+        Sword,
+        Spear,
+        Axe,
+    }
+
     public string unitName;
     public int unitLevel;
 
@@ -22,6 +29,9 @@ public class Unit : MonoBehaviour
     public int currentMP;
 
     public bool isDefending;
+
+    [Header("Weapon Type Tracker")]
+    [SerializeField] public WeaponType weaponType;
     public bool TakeDamage(int dmg)
     {
         currentHP -= dmg;
@@ -63,5 +73,21 @@ public class Unit : MonoBehaviour
             currentMP = maxMP;
 
         isDefending = true;
+    }
+
+    public void SwapWeapon()
+    {
+        switch (weaponType)
+        {
+            case WeaponType.Sword:
+                weaponType = WeaponType.Spear;
+                break;
+            case WeaponType.Spear:
+                weaponType = WeaponType.Axe;
+                break;
+            case WeaponType.Axe:
+                weaponType = WeaponType.Sword;
+                break;
+        }
     }
 }

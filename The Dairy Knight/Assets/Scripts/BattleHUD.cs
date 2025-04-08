@@ -73,16 +73,16 @@ public class BattleHUD : MonoBehaviour
             switch (unit.weaponType)
             {
                 case WeaponType.Sword:
-                    skillOne.text = "";
-                    skillTwo.text = "";
+                    skillOne.text = "Sword 1 Placeholder - 10 MP";
+                    skillTwo.text = "Sword 2 Placeholder - 15 MP";
                     break;
                 case WeaponType.Spear:
-                    skillOne.text = "";
-                    skillTwo.text = "";
+                    skillOne.text = "Spear 1 Placeholder - 10 MP";
+                    skillTwo.text = "Spear 2 Placeholder - 15 MP";
                     break;
                 case WeaponType.Axe:
-                    skillOne.text = "";
-                    skillTwo.text = "";
+                    skillOne.text = "Axe 1 Placeholder - 10 MP";
+                    skillTwo.text = "Axe 2 Placeholder - 15 MP";
                     break;
             }
     }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 /*
@@ -32,6 +33,13 @@ public class Unit : MonoBehaviour
 
     [Header("Weapon Type Tracker")]
     [SerializeField] public WeaponType weaponType;
+
+    // Audio clips
+    [Header("Unit Audio SFX")]
+    [SerializeField] public AudioClip unitAttack;
+    [SerializeField] public AudioClip playerBlock;
+    [SerializeField] public AudioClip playerHeal;
+
     public bool TakeDamage(int dmg)
     {
         currentHP -= dmg;
@@ -47,12 +55,12 @@ public class Unit : MonoBehaviour
 
     public bool Heal(int healAmount, int manaCost)
     {
-        currentMP -= manaCost;
-
-        if (currentMP <= 0)
+        if (currentMP - manaCost < 0)
         {
             return false;
         }
+
+        currentMP -= manaCost;
 
         currentHP += healAmount;
 
@@ -89,5 +97,18 @@ public class Unit : MonoBehaviour
                 weaponType = WeaponType.Sword;
                 break;
         }
+    }
+
+    public bool WeaponAttackSkill(int manaCost)
+    {
+        // Check if there is enough mana to use the WeaponSkill, if there is then change dialogue.
+        if (currentMP - manaCost < 0)
+        {
+            return false;
+        }
+
+        currentMP -= manaCost;
+
+        return true;
     }
 }

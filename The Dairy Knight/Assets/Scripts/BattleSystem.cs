@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -38,12 +39,6 @@ public class BattleSystem : MonoBehaviour
     public Button[] playerActions;
     public GameObject skillMenu;
     public TextMeshProUGUI weaponType;
-
-    // Audio clips
-    [Header("Unit Audio SFX")]
-    [SerializeField] private AudioClip unitAttack;
-    [SerializeField] private AudioClip playerBlock;
-    [SerializeField] private AudioClip playerHeal;
 
     private GameObject player;
     private GameObject enemy;
@@ -162,6 +157,7 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN) return;
 
         ToggleButtonInteraction();
+        OnSkillMenuClick();
 
         StartCoroutine(PlayerHeal());
     }
@@ -190,40 +186,29 @@ public class BattleSystem : MonoBehaviour
 
     public void OnSkillOneClick()
     {
-        switch (playerUnit.weaponType)
-        {
-            case Unit.WeaponType.Sword:
-                dialogueText.text = playerUnit.unitName + " cuts the cheese!";
+        if(state != BattleState.PLAYERTURN) return;
 
-                break;
+        ToggleButtonInteraction();
+        OnSkillMenuClick(); // hide skill menu
 
-            case Unit.WeaponType.Spear:
-                dialogueText.text = playerUnit.unitName + " makes a capsaicin kebab!";
-
-                break;
-
-            case Unit.WeaponType.Axe:
-                dialogueText.text = playerUnit.unitName + " chops some onions!";
-
-                break;
-        }
+        StartCoroutine(WeaponSkillAttack());
     }
 
     public void OnSkillTwoClick()
     {
         switch (playerUnit.weaponType)
         {
-            case Unit.WeaponType.Sword:
+            case WeaponType.Sword:
                 dialogueText.text = playerUnit.unitName + " " + playerUnit.weaponType.ToString() + "SKILL2 PLACEHOLDER";
 
                 break;
 
-            case Unit.WeaponType.Spear:
+            case WeaponType.Spear:
                 dialogueText.text = playerUnit.unitName + " " + playerUnit.weaponType.ToString() + " SKILL2 PLACEHOLDER";
 
                 break;
 
-            case Unit.WeaponType.Axe:
+            case WeaponType.Axe:
                 dialogueText.text = playerUnit.unitName + " " + playerUnit.weaponType.ToString() + " SKILL2 PLACEHOLDER";
 
                 break;
@@ -310,9 +295,9 @@ public class BattleSystem : MonoBehaviour
         bool isDead = enemyUnit.TakeDamage(damage);
         enemyHUD.SetHP(enemyUnit.currentHP);
 
-        if (unitAttack)
+        if (playerUnit.unitAttack)
         {
-            SoundFXManager.instance.PlaySoundSFXClip(unitAttack, enemyBattleStation, 10f);
+            SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, enemyBattleStation, 10f);
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -346,9 +331,9 @@ public class BattleSystem : MonoBehaviour
 
         else
         {
-            if (playerHeal)
+            if (playerUnit.playerHeal)
             {
-                SoundFXManager.instance.PlaySoundSFXClip(playerHeal, playerBattleStation, 10f);
+                SoundFXManager.instance.PlaySoundSFXClip(playerUnit.playerHeal, playerBattleStation, 10f);
             }
 
             playerHUD.SetHP(playerUnit.currentHP);
@@ -391,6 +376,135 @@ public class BattleSystem : MonoBehaviour
         CheckWeaponType(playerUnit);
     }
 
+    IEnumerator WeaponSkillAttack()
+    {
+        if (playerUnit.WeaponAttackSkill(10)) // Mana check
+        {
+            playerHUD.SetMP(playerUnit.currentMP);
+
+            // JUST COPIED THE PLAYERATTACK IN HERE, I FIGURE ITS BETTER TO JUST MAKE A SECOND FUNCTION SO WE CAN ADD SPECIFIC ANIMATIONS AND STUFF
+            // I was thinking of finding a way to store weapon info separately with their skills, but that would require remaking the whole system
+            // And since this is a smaller game with a hard amount of 2 skills we can just hard code it this way. First one can be an attack the second can be some support move?
+
+            Vector3 attackPosition = enemyBattleStation.position + Vector3.left * 2f; // Move slightly in front of the enemy
+
+            yield return StartCoroutine(MoveToPosition(player.transform, attackPosition, 0.5f));
+
+            switch (playerUnit.weaponType)
+            {
+                case WeaponType.Sword:
+                    dialogueText.text = playerUnit.unitName + " cuts the cheese!";
+
+                    break;
+
+                case WeaponType.Spear:
+                    dialogueText.text = playerUnit.unitName + " makes a capsaicin kebab!";
+
+                    break;
+
+                case WeaponType.Axe:
+                    dialogueText.text = playerUnit.unitName + " chops some onions!";
+
+                    break;
+            }
+
+            yield return new WaitForSeconds(1.0f);
+
+            int damage = playerUnit.damage + 2; // Skill is gonna be increased damage with a new animation, so just add a damage modifier?
+
+            // Determine damage bonus or reduction if using wrong weapon type.
+
+            switch (playerUnit.weaponType)
+            {
+                case WeaponType.Sword:
+
+                    if (enemyUnit.weaponType == WeaponType.Spear)
+                    {
+                        damage /= 2;
+
+                        dialogueText.text += " It bounces off their weapon!";
+                    }
+
+                    else if (enemyUnit.weaponType == WeaponType.Axe)
+                    {
+                        damage *= 2;
+
+                        dialogueText.text += " It strikes their weakpoint!";
+                    }
+
+                    break;
+
+                case WeaponType.Spear:
+
+                    if (enemyUnit.weaponType == WeaponType.Axe)
+                    {
+                        damage /= 2;
+
+                        dialogueText.text += " It bounces off their weapon!";
+                    }
+
+                    else if (enemyUnit.weaponType == WeaponType.Sword)
+                    {
+                        damage *= 2;
+
+                        dialogueText.text += " It strikes their weakpoint!";
+                    }
+
+                    break;
+
+                case WeaponType.Axe:
+
+                    if (enemyUnit.weaponType == WeaponType.Sword)
+                    {
+                        damage /= 2;
+
+                        dialogueText.text += " It bounces off their weapon!";
+                    }
+
+                    else if (enemyUnit.weaponType == WeaponType.Spear)
+                    {
+                        damage *= 2;
+
+                        dialogueText.text += " It strikes their weakpoint!";
+                    }
+
+                    break;
+            }
+
+            bool isDead = enemyUnit.TakeDamage(damage);
+            enemyHUD.SetHP(enemyUnit.currentHP);
+
+            if (playerUnit.unitAttack)
+            {
+                SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, enemyBattleStation, 10f);
+            }
+
+            yield return new WaitForSeconds(0.5f);
+
+            yield return StartCoroutine(MoveToPosition(player.transform, playerBattleStation.position, 0.5f));
+
+            yield return new WaitForSeconds(0.5f);
+
+            if (isDead)
+            {
+                state = BattleState.WON;
+                StartCoroutine(EndBattle());
+            }
+            else
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
+        }
+
+        else
+        {
+            dialogueText.text = playerUnit.unitName + " doesn't have enough mana!";
+            yield return new WaitForSeconds(1.5f);
+            PlayerTurn(); // Let player pick another option.
+        }
+    }
+
     IEnumerator EnemyTurn()
     {
         bool isDead = false;
@@ -403,9 +517,9 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        if (unitAttack)
+        if (playerUnit.unitAttack)
         {
-            SoundFXManager.instance.PlaySoundSFXClip(unitAttack, playerBattleStation, 10f);
+            SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, playerBattleStation, 10f);
         }
 
         int damage = enemyUnit.damage;
@@ -475,9 +589,9 @@ public class BattleSystem : MonoBehaviour
 
         if (playerUnit.isDefending)
         {
-            if (playerBlock)
+            if (playerUnit.playerBlock)
             {
-                SoundFXManager.instance.PlaySoundSFXClip(playerBlock, playerBattleStation, 10f);
+                SoundFXManager.instance.PlaySoundSFXClip(playerUnit.playerBlock, playerBattleStation, 10f);
             }
 
             dialogueText.text = playerUnit.unitName + " defended against the blow!";
@@ -515,19 +629,19 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.WON)
         {
-            dialogueText.text = "Bud triumphed! You win!";
+            dialogueText.text = playerUnit.unitName + " triumphed! You win!";
 
             yield return new WaitForSeconds(2f);
 
-            SceneManager.LoadScene("Midterm_WinScreen");
+            SceneManager.LoadScene("TheDairyKnight_WinScreen");
         }
         else if (state == BattleState.LOST)
         {
-            dialogueText.text = "Bun is the victor this time... You lose.";
+            dialogueText.text = "The Spice Syndicate defeated the brave Dairy Knight... You lose.";
 
             yield return new WaitForSeconds(2f);
 
-            SceneManager.LoadScene("Midterm_LossScreen");
+            SceneManager.LoadScene("TheDairyKnight_LossScreen");
         }
     }
 }

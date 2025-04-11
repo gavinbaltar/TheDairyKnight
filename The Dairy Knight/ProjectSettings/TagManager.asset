@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Platform
+  - Border
+  - Boundary
+  - Uncompleted
+  - Completed
   layers:
   - Default
   - TransparentFX
@@ -44,9 +49,18 @@ TagManager:
   - name: Background
     uniqueID: 303186059
     locked: 0
+  - name: Middleground
+    uniqueID: 4225182427
+    locked: 0
   - name: Level
     uniqueID: 720636731
     locked: 0
+  - name: BehindPlayer
+    uniqueID: 1244716597
+    locked: 0
   - name: Player
     uniqueID: 1172331041
+    locked: 0
+  - name: Foreground
+    uniqueID: 1032539809
     locked: 0

@@ -31,13 +31,19 @@ public class PlayerController : MonoBehaviour
         // Instantiation
         body = GetComponent<Rigidbody2D>();
         onGround = false;
+
+        if (PlayerData.level == 2)
+        {
+
+        }
+
     }
 
     // Checks if the player is currently on a surface
     void OnCollisionEnter2D(Collision2D collision)
     {
         // Checks if the player is grounded for a jump
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Destructible")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Border" || collision.gameObject.tag == "Boundary")
         {
             onGround = true;
         } else
@@ -49,6 +55,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Tracks player position
+        PlayerData.playerPosition = transform.position;
+
         // Allows for Player Movement along a 2D Axis
         float horizontalInput = Input.GetAxis("Horizontal");
         body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
@@ -70,7 +79,7 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         } else if (Input.GetKeyDown(KeyCode.C)) {
             // Shows/Hides Instructions 
-            instructions.gameObject.SetActive(!instructions.gameObject.activeSelf);
+            instructions.gameObject.SetActive(!instructions.gameObject.active);
         }
     }
 }

@@ -2,7 +2,8 @@
 Bryan Bong
 Midterm
 Filename: HoveringCollectible.cs
-Description: This script's creates a hover "animation" for the collectibles. Also used for the portal.
+Description: From the Midterm, repurposed for general animation. 
+Original DESC: This script's creates a hover "animation" for the collectibles. Also used for the portal.
 Tutorial: https://www.youtube.com/watch?v=C7sPsksH4JM
 */
 

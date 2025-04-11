@@ -201,6 +201,11 @@ public class BattleSystem : MonoBehaviour
 
         ToggleButtonInteraction();
 
+        if (skillMenu.activeSelf)
+        {
+            OnSkillMenuClick();
+        }
+
         StartCoroutine(PlayerAttack());
     }
 
@@ -210,6 +215,11 @@ public class BattleSystem : MonoBehaviour
 
         ToggleButtonInteraction();
 
+        if (skillMenu.activeSelf)
+        {
+            OnSkillMenuClick();
+        }
+
         StartCoroutine(PlayerDefend());
     }
 
@@ -218,6 +228,10 @@ public class BattleSystem : MonoBehaviour
         if (state != BattleState.PLAYERTURN) return;
 
         ToggleButtonInteraction();
+
+        if (skillMenu.activeSelf) {
+            OnSkillMenuClick();
+        }
 
         StartCoroutine(PlayerWeaponSwap());
     }

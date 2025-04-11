@@ -8118,6 +8118,9 @@ MonoBehaviour:
   - {fileID: 339392558}
   - {fileID: 526766464}
   - {fileID: 1863632212}
+  - {fileID: 110311642}
+  - {fileID: 1143966632}
+  - {fileID: 153483955}
   skillMenu: {fileID: 408319714}
   weaponType: {fileID: 2133964148}
 --- !u!1 &2020835351

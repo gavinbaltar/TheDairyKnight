@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour
     }
 
     public string unitName;
-    public int unitLevel;
+    public int unitLevel = PlayerData.level;
 
     public int damage;
 
@@ -31,6 +31,14 @@ public class Unit : MonoBehaviour
     public int currentMP;
 
     public bool isDefending;
+
+    [Header("Status Effects")]
+    public bool isWeakened;
+    public bool isVulnerable;
+    public bool isCountering;
+    public int weakenedDuration = 0;
+    public int vulnerableDuration = 0;
+    public int counteringDuration = 0;
 
     [Header("Weapon Type Tracker")]
     [SerializeField] public WeaponType weaponType;
@@ -76,7 +84,7 @@ public class Unit : MonoBehaviour
     public void Defend()
     {
         // If a fully fledged game I would check to see if there's a status effect here preventing guard or something but there isn't
-        currentMP += maxMP / 10; // Restore a tenth of mana, random arbitrary number.
+        currentMP += maxMP / 5; // Restore a tenth of mana, random arbitrary number.
 
         if (currentMP > maxMP)
             currentMP = maxMP;
@@ -134,6 +142,36 @@ public class Unit : MonoBehaviour
         }
 
         currentMP -= manaCost;
+
+        return true;
+    }
+
+    public bool SetStatusEffect(Unit target)
+    {
+        switch (weaponType)
+        {
+            case WeaponType.Sword:
+
+                target.isWeakened = true;
+                target.weakenedDuration = 3;
+
+                break;
+
+            case WeaponType.Spear:
+
+                //  This one applies to the player not the enemy.
+                isCountering = true;
+                counteringDuration = 3;
+
+                break;
+
+            case WeaponType.Axe:
+
+                target.isVulnerable = true;
+                target.vulnerableDuration = 1;
+
+                break;
+        }
 
         return true;
     }

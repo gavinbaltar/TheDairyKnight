@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1172331041
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 05e800df01401ed4199c3655c000ece0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,12 +99,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Dairy Knight
   unitLevel: 1
-  damage: 2
-  maxHP: 20
-  currentHP: 20
-  maxMP: 10
-  currentMP: 10
+  damage: 5
+  maxHP: 40
+  currentHP: 40
+  maxMP: 25
+  currentMP: 25
   isDefending: 0
-  isSword: 1
-  isAxe: 0
-  isSpear: 0
+  isWeakened: 0
+  isVulnerable: 0
+  isCountering: 0
+  weakenedDuration: 0
+  vulnerableDuration: 0
+  counteringDuration: 0
+  weaponType: 0
+  unitAttack: {fileID: 0}
+  playerBlock: {fileID: 0}
+  playerHeal: {fileID: 0}

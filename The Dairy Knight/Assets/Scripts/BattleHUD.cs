@@ -27,8 +27,6 @@ public class BattleHUD : MonoBehaviour
     public TextMeshProUGUI skillTwo;
     public void SetHUD(Unit unit)
     {
-        unit.unitLevel = PlayerData.level;
-
         nameText.text = unit.unitName;
         levelText.text = "Lvl " + unit.unitLevel;
         healthText.text = "HP: " + unit.currentHP + "/" + unit.maxHP;
@@ -78,15 +76,15 @@ public class BattleHUD : MonoBehaviour
             switch (unit.weaponType)
             {
                 case WeaponType.Sword:
-                    skillOne.text = "Cheddar Clash - 10 MP";
+                    skillOne.text = "Cheddar Clash - 5 MP";
                     break;
 
                 case WeaponType.Spear:
-                    skillOne.text = "Swiss Skewer - 10 MP";
+                    skillOne.text = "Swiss Skewer - 5 MP";
                     break;
 
                 case WeaponType.Axe:
-                    skillOne.text = "Colby Cleave - 10 MP";
+                    skillOne.text = "Colby Cleave - 5 MP";
                     break;
             }
         }

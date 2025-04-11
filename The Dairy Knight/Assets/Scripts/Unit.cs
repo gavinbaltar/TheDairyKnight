@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*
@@ -83,23 +84,48 @@ public class Unit : MonoBehaviour
         isDefending = true;
     }
 
-    public void SwapWeapon()
+    public bool SwapWeapon()
     {
+        // Player has access to 1 weapon on level 1, 2 on level 2, and 3 on level 3
+
+        if (PlayerData.level == 1)
+        {
+            return false;
+        }
+        
+        else if (PlayerData.level == 2)
+        {
+            if(weaponType == WeaponType.Sword)
+            {
+                weaponType = WeaponType.Axe;
+            }
+            else
+            {
+                weaponType = WeaponType.Sword;
+            }
+
+            return true;
+        }
+
         switch (weaponType)
         {
             case WeaponType.Sword:
-                weaponType = WeaponType.Spear;
-                break;
+                    weaponType = WeaponType.Spear;
+                    break;
+
             case WeaponType.Spear:
                 weaponType = WeaponType.Axe;
-                break;
+                break; 
+
             case WeaponType.Axe:
                 weaponType = WeaponType.Sword;
                 break;
         }
+
+        return true;
     }
 
-    public bool WeaponAttackSkill(int manaCost)
+    public bool WeaponSkillCheck(int manaCost)
     {
         // Check if there is enough mana to use the WeaponSkill, if there is then change dialogue.
         if (currentMP - manaCost < 0)

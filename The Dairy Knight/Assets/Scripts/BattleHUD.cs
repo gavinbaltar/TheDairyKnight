@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static Unit;
@@ -26,20 +27,17 @@ public class BattleHUD : MonoBehaviour
     public TextMeshProUGUI skillTwo;
     public void SetHUD(Unit unit)
     {
+        unit.unitLevel = PlayerData.level;
+
         nameText.text = unit.unitName;
         levelText.text = "Lvl " + unit.unitLevel;
         healthText.text = "HP: " + unit.currentHP + "/" + unit.maxHP;
         manaText.text = "MP: " + unit.currentMP + "/" + unit.maxMP;
         weaponType.text = "Weapon: " + unit.weaponType;
 
-        if(skillOne)
+        if(skillOne && skillTwo)
         {
-            skillOne.text = "Skill 1 - 10 MP";
-        }
-
-        if (skillTwo)
-        {
-            skillTwo.text = "Skill 2 - 15 MP";
+            SetSkillText(unit);
         }
     }
     public void SetHP(int hp)
@@ -70,21 +68,46 @@ public class BattleHUD : MonoBehaviour
             return;
         }
 
+        SetSkillText(unit);
+    }
+
+    public void SetSkillText(Unit unit)
+    {
+        if (skillOne)
+        {
             switch (unit.weaponType)
             {
                 case WeaponType.Sword:
-                    skillOne.text = "Sword 1 Placeholder - 10 MP";
-                    skillTwo.text = "Sword 2 Placeholder - 15 MP";
+                    skillOne.text = "Cheddar Clash - 10 MP";
                     break;
+
                 case WeaponType.Spear:
-                    skillOne.text = "Spear 1 Placeholder - 10 MP";
-                    skillTwo.text = "Spear 2 Placeholder - 15 MP";
+                    skillOne.text = "Swiss Skewer - 10 MP";
                     break;
+
                 case WeaponType.Axe:
-                    skillOne.text = "Axe 1 Placeholder - 10 MP";
-                    skillTwo.text = "Axe 2 Placeholder - 15 MP";
+                    skillOne.text = "Colby Cleave - 10 MP";
                     break;
             }
+        }
+
+        if (skillTwo)
+        {
+            switch (unit.weaponType)
+            {
+                case WeaponType.Sword:
+                    skillTwo.text = "Aged Cheese - 15 MP";
+                    break;
+
+                case WeaponType.Spear:
+                    skillTwo.text = "Parmigiano Riposte - 15 MP";
+                    break;
+
+                case WeaponType.Axe:
+                    skillTwo.text = "Pepper Hi-Jack - 15 MP";
+                    break;
+            }
+        }
     }
 }
 

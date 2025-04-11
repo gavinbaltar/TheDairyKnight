@@ -98,6 +98,42 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
+    public void UpdateStatusDuration()
+    {
+        if (playerUnit.isCountering)
+        {
+            playerUnit.counteringDuration -= 1;
+
+            if (playerUnit.counteringDuration < 0)
+            {
+                playerUnit.counteringDuration = 0;
+                playerUnit.isCountering = false;
+            }
+        }
+
+        if (enemyUnit.isWeakened)
+        {
+            enemyUnit.weakenedDuration -= 1;
+
+            if (enemyUnit.weakenedDuration < 0)
+            {
+                enemyUnit.weakenedDuration = 0;
+                enemyUnit.isWeakened = false;
+            }
+        }
+
+        if (enemyUnit.isVulnerable)
+        {
+            enemyUnit.vulnerableDuration -= 1;
+
+            if (enemyUnit.vulnerableDuration < 0)
+            {
+                enemyUnit.vulnerableDuration = 0;
+                enemyUnit.isVulnerable = false;
+            }
+        }
+    }
+
     void ToggleButtonInteraction()
     {
         if (playerActions[1].interactable)
@@ -138,6 +174,8 @@ public class BattleSystem : MonoBehaviour
     {
         playerUnit.isDefending = false;
 
+        UpdateStatusDuration();
+
         dialogueText.text = "What will you do?";
 
         ToggleButtonInteraction();
@@ -150,16 +188,6 @@ public class BattleSystem : MonoBehaviour
         ToggleButtonInteraction();
 
         StartCoroutine(PlayerAttack());
-    }
-
-    public void OnHealButton()
-    {
-        if (state != BattleState.PLAYERTURN) return;
-
-        ToggleButtonInteraction();
-        OnSkillMenuClick();
-
-        StartCoroutine(PlayerHeal());
     }
 
     public void OnDefendButton()
@@ -196,23 +224,22 @@ public class BattleSystem : MonoBehaviour
 
     public void OnSkillTwoClick()
     {
-        switch (playerUnit.weaponType)
-        {
-            case WeaponType.Sword:
-                dialogueText.text = playerUnit.unitName + " " + playerUnit.weaponType.ToString() + "SKILL2 PLACEHOLDER";
+        if (state != BattleState.PLAYERTURN) return;
 
-                break;
+        ToggleButtonInteraction();
+        OnSkillMenuClick(); // hide skill menu
 
-            case WeaponType.Spear:
-                dialogueText.text = playerUnit.unitName + " " + playerUnit.weaponType.ToString() + " SKILL2 PLACEHOLDER";
+        StartCoroutine(WeaponSkillUtility());
+    }
 
-                break;
+    public void OnHealButton()
+    {
+        if (state != BattleState.PLAYERTURN) return;
 
-            case WeaponType.Axe:
-                dialogueText.text = playerUnit.unitName + " " + playerUnit.weaponType.ToString() + " SKILL2 PLACEHOLDER";
+        ToggleButtonInteraction();
+        OnSkillMenuClick();
 
-                break;
-        }
+        StartCoroutine(PlayerHeal());
     }
 
     public string CheckWeaponType(Unit unit)
@@ -231,65 +258,12 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        int damage = playerUnit.damage;
-
         // Determine damage bonus or reduction if using wrong weapon type.
+        int damage = DetermineDamageBonus(playerUnit.damage, playerUnit, enemyUnit);
 
-        switch (playerUnit.weaponType)
+        if (damage < 0)
         {
-            case WeaponType.Sword:
-
-                if (enemyUnit.weaponType == WeaponType.Spear)
-                {
-                    damage /= 2;
-
-                    dialogueText.text += " It bounces off their weapon!";
-                }
-
-                else if (enemyUnit.weaponType == WeaponType.Axe)
-                {
-                    damage *= 2;
-
-                    dialogueText.text += " It strikes their weakpoint!";
-                }
-
-                break;
-
-            case WeaponType.Spear:
-
-                if (enemyUnit.weaponType == WeaponType.Axe)
-                {
-                    damage /= 2;
-
-                    dialogueText.text += " It bounces off their weapon!";
-                }
-
-                else if (enemyUnit.weaponType == WeaponType.Sword)
-                {
-                    damage *= 2;
-
-                    dialogueText.text += " It strikes their weakpoint!";
-                }
-
-                break;
-
-            case WeaponType.Axe:
-
-                if (enemyUnit.weaponType == WeaponType.Sword)
-                {
-                    damage /= 2;
-
-                    dialogueText.text += " It bounces off their weapon!";
-                }
-
-                else if (enemyUnit.weaponType == WeaponType.Spear)
-                {
-                    damage *= 2;
-
-                    dialogueText.text += " It strikes their weakpoint!";
-                }
-
-                break;
+            damage = 0;
         }
 
         bool isDead = enemyUnit.TakeDamage(damage);
@@ -364,21 +338,32 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerWeaponSwap()
     {
-        dialogueText.text = playerUnit.unitName + " swaps weapons!";
+        if (playerUnit.SwapWeapon())
+        {
+            dialogueText.text = playerUnit.unitName + " swaps weapons!";
 
-        yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1.0f);
 
-        playerUnit.SwapWeapon();
-        playerHUD.SetWeaponType(playerUnit.weaponType.ToString(), playerUnit);
+            playerHUD.SetWeaponType(playerUnit.weaponType.ToString(), playerUnit);
+            playerHUD.SetSkillText(playerUnit);
 
-        ToggleButtonInteraction();
+            ToggleButtonInteraction();
 
-        CheckWeaponType(playerUnit);
+            CheckWeaponType(playerUnit);
+        }
+        else
+        {
+            dialogueText.text = playerUnit.unitName + " only has one weapon!";
+
+            yield return new WaitForSeconds(1.0f);
+
+            PlayerTurn();
+        }
     }
 
     IEnumerator WeaponSkillAttack()
     {
-        if (playerUnit.WeaponAttackSkill(10)) // Mana check
+        if (playerUnit.WeaponSkillCheck(5)) // Mana check
         {
             playerHUD.SetMP(playerUnit.currentMP);
 
@@ -410,65 +395,12 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(1.0f);
 
-            int damage = playerUnit.damage + 2; // Skill is gonna be increased damage with a new animation, so just add a damage modifier?
-
             // Determine damage bonus or reduction if using wrong weapon type.
+            int damage = DetermineDamageBonus(playerUnit.damage + 2, playerUnit, enemyUnit); // Skill is gonna be increased damage with a new animation, so just add a damage modifier?
 
-            switch (playerUnit.weaponType)
+            if(damage < 0)
             {
-                case WeaponType.Sword:
-
-                    if (enemyUnit.weaponType == WeaponType.Spear)
-                    {
-                        damage /= 2;
-
-                        dialogueText.text += " It bounces off their weapon!";
-                    }
-
-                    else if (enemyUnit.weaponType == WeaponType.Axe)
-                    {
-                        damage *= 2;
-
-                        dialogueText.text += " It strikes their weakpoint!";
-                    }
-
-                    break;
-
-                case WeaponType.Spear:
-
-                    if (enemyUnit.weaponType == WeaponType.Axe)
-                    {
-                        damage /= 2;
-
-                        dialogueText.text += " It bounces off their weapon!";
-                    }
-
-                    else if (enemyUnit.weaponType == WeaponType.Sword)
-                    {
-                        damage *= 2;
-
-                        dialogueText.text += " It strikes their weakpoint!";
-                    }
-
-                    break;
-
-                case WeaponType.Axe:
-
-                    if (enemyUnit.weaponType == WeaponType.Sword)
-                    {
-                        damage /= 2;
-
-                        dialogueText.text += " It bounces off their weapon!";
-                    }
-
-                    else if (enemyUnit.weaponType == WeaponType.Spear)
-                    {
-                        damage *= 2;
-
-                        dialogueText.text += " It strikes their weakpoint!";
-                    }
-
-                    break;
+                damage = 0;
             }
 
             bool isDead = enemyUnit.TakeDamage(damage);
@@ -505,6 +437,111 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    IEnumerator WeaponSkillUtility()
+    {
+        if(playerUnit.WeaponSkillCheck(15))
+        {
+            playerUnit.SetStatusEffect(enemyUnit);
+
+            switch (playerUnit.weaponType)
+            {
+                case WeaponType.Sword:
+                    dialogueText.text = playerUnit.unitName + " ages the enemy like a fine cheese! They're weakened for 3 turns!";
+
+                    break;
+
+                case WeaponType.Spear:
+                    dialogueText.text = playerUnit.unitName + " prepares to counter the enemy's attacks for the next 3 turns!";
+
+                    break;
+
+                case WeaponType.Axe:
+                    dialogueText.text = playerUnit.unitName + " chops some onions! They're vulnerable for the next attack!";
+
+                    break;
+            }
+
+            playerHUD.SetMP(playerUnit.currentMP);
+
+            yield return new WaitForSeconds(1.0f);
+
+            StartCoroutine(EnemyTurn());
+
+            // Maybe come up with icons here to turn on and off depending on the status that is applied?
+        } 
+        
+        else
+        {
+            dialogueText.text = playerUnit.unitName + " doesn't have enough mana!";
+            yield return new WaitForSeconds(1.5f);
+            PlayerTurn(); // Let player pick another option.
+        }
+    }
+
+    public int DetermineDamageBonus(int damage, Unit attacker, Unit defender)
+    {
+        switch (attacker.weaponType)
+        {
+            case WeaponType.Sword:
+
+                if (defender.weaponType == WeaponType.Spear)
+                {
+                    dialogueText.text += " It bounces off their weapon!";
+                    damage -= 2;
+                }
+
+                else if (defender.weaponType == WeaponType.Axe)
+                {
+                    dialogueText.text += " It strikes their weakpoint!";
+                    damage += 2;
+                }
+
+                break;
+
+            case WeaponType.Spear:
+
+                if (defender.weaponType == WeaponType.Axe)
+                {
+                    dialogueText.text += " It bounces off their weapon!";
+                    damage -= 2;
+                }
+
+                else if (defender.weaponType == WeaponType.Sword)
+                {
+                    dialogueText.text += " It strikes their weakpoint!";
+                    damage += 2;
+                }
+
+                break;
+
+            case WeaponType.Axe:
+
+                if (defender.weaponType == WeaponType.Sword)
+                {
+                    dialogueText.text += " It bounces off their weapon!";
+                    damage -= 2;
+                }
+
+                else if (defender.weaponType == WeaponType.Spear)
+                {
+                    dialogueText.text += " It strikes their weakpoint!";
+                    damage += 2;
+                }
+
+                break;
+        }
+
+        if (defender.isVulnerable) { damage *= 2; }
+        if (attacker.isWeakened) { damage /= 2; }
+
+        if(damage < 0)
+        {
+            damage = 0;
+        }
+
+        return damage;
+    }
+
     IEnumerator EnemyTurn()
     {
         bool isDead = false;
@@ -522,70 +559,8 @@ public class BattleSystem : MonoBehaviour
             SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, playerBattleStation, 10f);
         }
 
-        int damage = enemyUnit.damage;
-
         // Determine reduction & bonuses
-
-        switch (enemyUnit.weaponType)
-        {
-            case WeaponType.Sword:
-
-                if (playerUnit.weaponType == WeaponType.Spear)
-                {
-                    damage /= 2;
-
-                    dialogueText.text += " It bounces off their weapon!";
-                }
-
-                else if (playerUnit.weaponType == WeaponType.Axe)
-                {
-                    damage *= 2;
-
-                    dialogueText.text += " It strikes their weakpoint!";
-                }
-
-                break;
-
-            case WeaponType.Spear:
-
-                if (playerUnit.weaponType == WeaponType.Axe)
-                {
-                    damage /= 2;
-
-                    dialogueText.text += " It bounces off their weapon!";
-                }
-
-                else if (playerUnit.weaponType == WeaponType.Sword)
-                {
-                    damage *= 2;
-
-                    dialogueText.text += " It strikes their weakpoint!";
-                }
-
-                break;
-
-            case WeaponType.Axe:
-
-                if (playerUnit.weaponType == WeaponType.Sword)
-                {
-                    damage /= 2;
-
-                    dialogueText.text += " It bounces off their weapon!";
-                }
-
-                else if (playerUnit.weaponType == WeaponType.Spear)
-                {
-                    damage *= 2;
-
-                    dialogueText.text += " It strikes their weakpoint!";
-                }
-
-                break;
-
-            default:
-                break;
-        }
-
+        int damage = DetermineDamageBonus(enemyUnit.damage, enemyUnit, playerUnit);
 
         if (playerUnit.isDefending)
         {
@@ -632,9 +607,19 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = playerUnit.unitName + " triumphed! You win!";
 
             yield return new WaitForSeconds(2f);
-            PlayerData.level++;
 
-            SceneManager.LoadScene("LevelSelect");
+
+            if (PlayerData.level != 3)
+            {
+                PlayerData.level++;
+
+                SceneManager.LoadScene("LevelSelect");
+            }
+            else
+            {
+                SceneManager.LoadScene("TheDairyKnight_WinScreen");
+            }
+
         }
         else if (state == BattleState.LOST)
         {

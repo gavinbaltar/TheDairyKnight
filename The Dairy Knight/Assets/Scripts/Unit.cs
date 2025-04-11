@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /*
@@ -20,7 +21,7 @@ public class Unit : MonoBehaviour
     }
 
     public string unitName;
-    public int unitLevel;
+    public int unitLevel = PlayerData.level;
 
     public int damage;
 
@@ -30,6 +31,14 @@ public class Unit : MonoBehaviour
     public int currentMP;
 
     public bool isDefending;
+
+    [Header("Status Effects")]
+    public bool isWeakened;
+    public bool isVulnerable;
+    public bool isCountering;
+    public int weakenedDuration = 0;
+    public int vulnerableDuration = 0;
+    public int counteringDuration = 0;
 
     [Header("Weapon Type Tracker")]
     [SerializeField] public WeaponType weaponType;
@@ -75,7 +84,7 @@ public class Unit : MonoBehaviour
     public void Defend()
     {
         // If a fully fledged game I would check to see if there's a status effect here preventing guard or something but there isn't
-        currentMP += maxMP / 10; // Restore a tenth of mana, random arbitrary number.
+        currentMP += maxMP / 5; // Restore a tenth of mana, random arbitrary number.
 
         if (currentMP > maxMP)
             currentMP = maxMP;
@@ -83,23 +92,48 @@ public class Unit : MonoBehaviour
         isDefending = true;
     }
 
-    public void SwapWeapon()
+    public bool SwapWeapon()
     {
+        // Player has access to 1 weapon on level 1, 2 on level 2, and 3 on level 3
+
+        if (PlayerData.level == 1)
+        {
+            return false;
+        }
+        
+        else if (PlayerData.level == 2)
+        {
+            if(weaponType == WeaponType.Sword)
+            {
+                weaponType = WeaponType.Axe;
+            }
+            else
+            {
+                weaponType = WeaponType.Sword;
+            }
+
+            return true;
+        }
+
         switch (weaponType)
         {
             case WeaponType.Sword:
-                weaponType = WeaponType.Spear;
-                break;
+                    weaponType = WeaponType.Spear;
+                    break;
+
             case WeaponType.Spear:
                 weaponType = WeaponType.Axe;
-                break;
+                break; 
+
             case WeaponType.Axe:
                 weaponType = WeaponType.Sword;
                 break;
         }
+
+        return true;
     }
 
-    public bool WeaponAttackSkill(int manaCost)
+    public bool WeaponSkillCheck(int manaCost)
     {
         // Check if there is enough mana to use the WeaponSkill, if there is then change dialogue.
         if (currentMP - manaCost < 0)
@@ -108,6 +142,36 @@ public class Unit : MonoBehaviour
         }
 
         currentMP -= manaCost;
+
+        return true;
+    }
+
+    public bool SetStatusEffect(Unit target)
+    {
+        switch (weaponType)
+        {
+            case WeaponType.Sword:
+
+                target.isWeakened = true;
+                target.weakenedDuration = 3;
+
+                break;
+
+            case WeaponType.Spear:
+
+                //  This one applies to the player not the enemy.
+                isCountering = true;
+                counteringDuration = 3;
+
+                break;
+
+            case WeaponType.Axe:
+
+                target.isVulnerable = true;
+                target.vulnerableDuration = 1;
+
+                break;
+        }
 
         return true;
     }

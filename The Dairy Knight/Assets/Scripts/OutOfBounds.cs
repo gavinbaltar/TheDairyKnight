@@ -56,8 +56,7 @@ public class OutOfBounds : MonoBehaviour
         {
             if (collision.gameObject.name == "ChiliLevel")
             {
-                Debug.Log(PlayerData.level);
-                SceneManager.LoadScene("TestLevel");
+                SceneManager.LoadScene("TheDairyKnight_BETA");
             }
         }
     }

@@ -632,8 +632,9 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = playerUnit.unitName + " triumphed! You win!";
 
             yield return new WaitForSeconds(2f);
+            PlayerData.level++;
 
-            SceneManager.LoadScene("TheDairyKnight_WinScreen");
+            SceneManager.LoadScene("LevelSelect");
         }
         else if (state == BattleState.LOST)
         {

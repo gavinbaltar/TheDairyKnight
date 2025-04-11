@@ -19,6 +19,10 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 public class BattleSystem : MonoBehaviour
 {
     public BattleState state;
+    public TutorialManager tutorialManager;
+    [SerializeField] public bool isTutorial;
+    bool firstPromptPlayed;
+    bool secondPromptPlayed;
 
     // Prefabs
     public GameObject playerPrefab;
@@ -179,6 +183,16 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "What will you do?";
 
         ToggleButtonInteraction();
+
+        if(isTutorial && !firstPromptPlayed)
+        {
+            tutorialManager.SetUpFirstPrompt();
+            firstPromptPlayed = true;
+        } else if(isTutorial && !secondPromptPlayed)
+        {
+            tutorialManager.SetUpSecondPrompt();
+            secondPromptPlayed = true;
+        }
     }
 
     public void OnAttackButton()
@@ -207,6 +221,7 @@ public class BattleSystem : MonoBehaviour
 
         StartCoroutine(PlayerWeaponSwap());
     }
+
     public void OnSkillMenuClick()
     {
         skillMenu.SetActive(!skillMenu.activeSelf);

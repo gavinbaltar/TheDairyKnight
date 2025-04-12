@@ -9,12 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelSelect.unity
     guid: 90dc405356b367c4295bc1e8e56890d0
   - enabled: 1
-    path: Assets/Scenes/TheDairyKnight_ALPHA.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/TheDairyKnight_BETA.unity
     guid: a435f97bd6aa9aa4aa68ebd22c3c74c8
-  - enabled: 1
-    path: Assets/Scenes/TestLevel.unity
-    guid: a658e716cabe2b44580f9df9cfafbe15
   m_configObjects: {}

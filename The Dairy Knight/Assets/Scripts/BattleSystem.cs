@@ -641,6 +641,7 @@ public class BattleSystem : MonoBehaviour
             if (PlayerData.level != 3)
             {
                 PlayerData.level++;
+                PlayerData.canSelect = false;
 
                 SceneManager.LoadScene("LevelSelect");
             }
@@ -652,6 +653,8 @@ public class BattleSystem : MonoBehaviour
         }
         else if (state == BattleState.LOST)
         {
+            PlayerData.canSelect = true;
+
             dialogueText.text = "The Spice Syndicate defeated the brave Dairy Knight... You lose.";
 
             yield return new WaitForSeconds(2f);

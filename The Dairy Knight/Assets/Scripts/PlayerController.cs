@@ -3,8 +3,7 @@ Bryan Bong
 Midterm
 Filename: PlayerController.cs
 Description: This script handles the player character's movement and control scheme. It also
-determines if it is grounded in order to allow for jumping. Also <ESC> functionality. If
-the C key is pressed, it will also toggle the instructions for the game.
+determines if it is grounded in order to allow for jumping. Also <ESC> functionality.
 Tutorials:
 https://www.youtube.com/watch?v=TcranVQUQ5U&list=PLgOEwFbvGm5o8hayFB6skAfa8Z-mw4dPV
 https://www.youtube.com/watch?v=_UBpkdKlJzE&list=PLgOEwFbvGm5o8hayFB6skAfa8Z-mw4dPV&index=3
@@ -31,19 +30,14 @@ public class PlayerController : MonoBehaviour
         // Instantiation
         body = GetComponent<Rigidbody2D>();
         onGround = false;
-
-        if (PlayerData.level == 2)
-        {
-
-        }
-
     }
 
     // Checks if the player is currently on a surface
     void OnCollisionEnter2D(Collision2D collision)
     {
         // Checks if the player is grounded for a jump
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Border" || collision.gameObject.tag == "Boundary")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Border" || collision.gameObject.tag == "Boundary"
+            || collision.gameObject.tag == "Uncompleted" || collision.gameObject.tag == "Completed")
         {
             onGround = true;
         } else
@@ -79,7 +73,7 @@ public class PlayerController : MonoBehaviour
             onGround = false;
         } else if (Input.GetKeyDown(KeyCode.C)) {
             // Shows/Hides Instructions 
-            instructions.gameObject.SetActive(!instructions.gameObject.active);
+            //instructions.gameObject.SetActive(!instructions.gameObject.active);
         }
     }
 }

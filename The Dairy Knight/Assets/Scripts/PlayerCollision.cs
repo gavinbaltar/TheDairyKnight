@@ -1,8 +1,10 @@
 /*
 Bryan Bong
 Final
-Filename: OutOfBounds.cs
-Description: Script to display a message if player collides with one of the borders.
+Filename: PlayerCollision.cs
+Description: Script to display a message if player collides with one of the borders or boundaries.
+Will also detect if the player collides with a triggers around the level selection to show the text
+and works with LevelSelection.cs to see if the user can enter the E key.
 */
 
 using System.Collections;
@@ -11,10 +13,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class OutOfBounds : MonoBehaviour
+public class PlayerCollision : MonoBehaviour
 {
     public Text boundaryText;
     public Text borderText;
+    public GameObject tutorial;
+    public GameObject startPrompt;
     public float targetTime = 3.0f;
     bool timer;
 
@@ -22,6 +26,10 @@ public class OutOfBounds : MonoBehaviour
     void Start()
     {
         timer = false;
+        if (PlayerData.level != 1)
+        {
+            tutorial.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -52,12 +60,29 @@ public class OutOfBounds : MonoBehaviour
         {
             boundaryText.gameObject.SetActive(true);
             timer = true;
-        } else if (collision.gameObject.tag == "Uncompleted")
+        } 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Uncompleted")
         {
+            startPrompt.SetActive(true);
+
             if (collision.gameObject.name == "ChiliLevel")
             {
-                SceneManager.LoadScene("TheDairyKnight_BETA");
-            }
+                PlayerData.sceneName = "TheDairyKnight_BETA";
+                PlayerData.canSelect = true;
+            } 
+        } else if (collision.gameObject.tag == "Boundary")
+        {
+            startPrompt.SetActive(false);
+            PlayerData.canSelect = false;
+        } else if (collision.gameObject.name == "EndTutorial")
+        {
+            tutorial.SetActive(false);
         }
     }
+
+
 }

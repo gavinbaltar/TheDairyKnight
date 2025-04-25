@@ -14,10 +14,15 @@ public class CameraFollowPlayer : MonoBehaviour
     public float FollowSpeed = 2f;
     public Transform player;
 
+    private void Start()
+    {
+        transform.position = PlayerData.cameraPosition;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        Vector4 newPos = new Vector4(player.position.x, player.position.y, -65, -10f);
+        Vector4 newPos = new Vector4(player.position.x, player.position.y, -65, 10f);
         transform.position = Vector3.Slerp(transform.position, newPos, FollowSpeed*Time.deltaTime);
         PlayerData.cameraPosition = newPos;
     }

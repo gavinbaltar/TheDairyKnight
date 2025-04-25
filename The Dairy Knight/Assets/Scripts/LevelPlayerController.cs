@@ -30,12 +30,6 @@ public class LevelPlayerController : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
     }
 
-    // TODO: Check for collision with next level
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {

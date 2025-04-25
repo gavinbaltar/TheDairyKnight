@@ -18,7 +18,9 @@ public class PlayerCollision : MonoBehaviour
     public Text boundaryText;
     public Text borderText;
     public GameObject tutorial;
-    public GameObject startPrompt;
+    public GameObject startPrompt1;
+    public GameObject startPrompt2;
+    //public GameObject startPrompt3;
     public float targetTime = 3.0f;
     bool timer;
 
@@ -65,15 +67,29 @@ public class PlayerCollision : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        GameObject startPrompt = null;
+        if (PlayerData.level == 1)
+        {
+            startPrompt = startPrompt1;
+        } else if (PlayerData.level == 2)
+        {
+            startPrompt = startPrompt2;
+        }
+
         if (collision.gameObject.tag == "Uncompleted")
         {
             startPrompt.SetActive(true);
 
             if (collision.gameObject.name == "ChiliLevel")
             {
-                PlayerData.sceneName = "TheDairyKnight_BETA";
+                PlayerData.sceneName = "TheDairyKnight_GAMMA1";
                 PlayerData.canSelect = true;
-            } 
+            } else if (collision.gameObject.name == "JalapenoLevel")
+            {
+                PlayerData.sceneName = "TheDairyKnight_GAMMA2";
+                PlayerData.canSelect = true;
+            }
+
         } else if (collision.gameObject.tag == "Boundary")
         {
             startPrompt.SetActive(false);

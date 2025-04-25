@@ -219,6 +219,13 @@ public class BattleSystem : MonoBehaviour
             tutorialManager.SwapWeaponPrompt();
             firstPromptPlayed = true;
         }
+        else
+        {
+            if (!firstPromptPlayed) {
+                tutorialManager.SetUpPrompt();
+                firstPromptPlayed = true;
+            }
+        }
     }
 
     public void OnAttackButton()
@@ -399,7 +406,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = playerUnit.unitName + " swaps weapons!";
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
 
             playerHUD.SetWeaponType(playerUnit.weaponType.ToString(), playerUnit);
             playerHUD.SetSkillText(playerUnit);
@@ -679,7 +686,7 @@ public class BattleSystem : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("TheDairyKnight_WinScreen");
+                SceneManager.LoadScene("WinScreen");
             }
 
         }

@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+    Assignment: Final
+    Written by: Gavin Baltar
+    Filename: TutorialManager.cs
+    Description: This script enables and disables text boxes and player buttons to provide a tutorial guide.
+*/
 public class TutorialManager : MonoBehaviour
 {
     public Button[] buttonList; // need to be able to disable buttons for tutorial.
@@ -14,6 +20,15 @@ public class TutorialManager : MonoBehaviour
     public GameObject dialoguePrompt;
     public GameObject secondPrompt;
 
+    public void SetUpPrompt()
+    {
+        dialoguePrompt.SetActive(true);
+
+        foreach (var button in buttonList)
+        {
+            button.interactable = false;
+        }
+    }
     public void SetUpFirstPrompt()
     {
         dialoguePrompt.SetActive(true);
@@ -92,5 +107,15 @@ public class TutorialManager : MonoBehaviour
         dialoguePrompt.SetActive(false);
 
         LastPrompt();
+    }
+
+    public void OnDialogueEnd()
+    {
+        dialoguePrompt.SetActive(false);
+
+        foreach (var button in buttonList)
+        {
+            button.interactable = true;
+        }
     }
 }

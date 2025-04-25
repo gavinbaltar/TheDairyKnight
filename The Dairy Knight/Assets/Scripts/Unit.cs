@@ -21,7 +21,7 @@ public class Unit : MonoBehaviour
     }
 
     public string unitName;
-    public int unitLevel = PlayerData.level;
+    public int unitLevel;
 
     public int damage;
 
@@ -31,6 +31,12 @@ public class Unit : MonoBehaviour
     public int currentMP;
 
     public bool isDefending;
+
+    [Header("Player Sprites")]
+    public SpriteRenderer spriteRenderer;
+    public Sprite playerSword;
+    public Sprite playerAxe;
+    public Sprite playerSpear;
 
     [Header("Status Effects")]
     public bool isWeakened;
@@ -56,6 +62,7 @@ public class Unit : MonoBehaviour
         if (currentHP <= 0)
         {
             currentHP = 0;
+            gameObject.SetActive(false);
             return true;
         }
         else
@@ -96,14 +103,14 @@ public class Unit : MonoBehaviour
     {
         // Player has access to 1 weapon on level 1, 2 on level 2, and 3 on level 3
 
-        if (PlayerData.level == 1)
+        if (unitLevel == 1)
         {
             return false;
         }
-        
-        else if (PlayerData.level == 2)
+
+        else if (unitLevel == 2)
         {
-            if(weaponType == WeaponType.Sword)
+            if (weaponType == WeaponType.Sword)
             {
                 weaponType = WeaponType.Axe;
             }
@@ -111,22 +118,39 @@ public class Unit : MonoBehaviour
             {
                 weaponType = WeaponType.Sword;
             }
-
-            return true;
         }
-
-        switch (weaponType)
+        else
         {
-            case WeaponType.Sword:
+
+            switch (weaponType)
+            {
+                case WeaponType.Sword:
                     weaponType = WeaponType.Spear;
                     break;
 
-            case WeaponType.Spear:
-                weaponType = WeaponType.Axe;
-                break; 
+                case WeaponType.Spear:
+                    weaponType = WeaponType.Axe;
+                    break;
+
+                case WeaponType.Axe:
+                    weaponType = WeaponType.Sword;
+                    break;
+            }
+        }
+
+        // Update sprite
+        switch (weaponType)
+        {
+            case WeaponType.Sword:
+                spriteRenderer.sprite = playerSword;
+                break;
 
             case WeaponType.Axe:
-                weaponType = WeaponType.Sword;
+                spriteRenderer.sprite = playerAxe;
+                break;
+
+            case WeaponType.Spear:
+                spriteRenderer.sprite = playerSpear;
                 break;
         }
 

@@ -16,6 +16,7 @@ public class PlayerData : MonoBehaviour
     public static int level = 1;
     public static bool wonPrevious = false;
     public static Vector2 playerPosition = Vector2.zero;
+    public static Vector2 cameraPosition = Vector2.zero;
     public static bool canSelect = false;
     public static string sceneName = "";
 }

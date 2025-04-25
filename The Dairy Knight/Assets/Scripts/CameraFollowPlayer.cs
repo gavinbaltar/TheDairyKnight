@@ -19,5 +19,6 @@ public class CameraFollowPlayer : MonoBehaviour
     {
         Vector4 newPos = new Vector4(player.position.x, player.position.y, -65, -10f);
         transform.position = Vector3.Slerp(transform.position, newPos, FollowSpeed*Time.deltaTime);
+        PlayerData.cameraPosition = newPos;
     }
 }

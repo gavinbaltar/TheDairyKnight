@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4924613208055215046}
   - component: {fileID: 933286515163228295}
   - component: {fileID: 8085543983991594857}
-  - component: {fileID: 261457959781736515}
+  - component: {fileID: 792699860171194480}
   m_Layer: 0
-  m_Name: Scovillain Brute
+  m_Name: Scovillain Lancer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1172331041
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c5dca4209ec62554babbe96e35a8f43f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05c2c9630a213034f9df19aafad00983, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,30 +98,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb9a4a04a21ec144ae7d2002c9a5f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Scovillain Brute
-  unitLevel: 1
-  damage: 8
-  maxHP: 20
-  currentHP: 20
-  maxMP: 20
-  currentMP: 20
+  unitName: Scovillain Lancer
+  unitLevel: 2
+  damage: 10
+  maxHP: 70
+  currentHP: 70
+  maxMP: 30
+  currentMP: 30
   isDefending: 0
   spriteRenderer: {fileID: 0}
   playerSword: {fileID: 0}
   playerAxe: {fileID: 0}
   playerSpear: {fileID: 0}
-  animator: {fileID: 261457959781736515}
+  animator: {fileID: 792699860171194480}
   isWeakened: 0
   isVulnerable: 0
   isCountering: 0
   weakenedDuration: 0
   vulnerableDuration: 0
   counteringDuration: 0
-  weaponType: 2
+  weaponType: 1
   unitAttack: {fileID: 0}
   playerBlock: {fileID: 0}
   playerHeal: {fileID: 0}
---- !u!95 &261457959781736515
+--- !u!95 &792699860171194480
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ Animator:
   m_GameObject: {fileID: 3340265343693024230}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 47c70242c49b98d4792c7c48216dafba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 599f0f8556ea54f4fbe668bf879ee1dd, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

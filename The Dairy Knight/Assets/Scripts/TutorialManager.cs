@@ -9,6 +9,7 @@ public class TutorialManager : MonoBehaviour
     public Button attackButton;
     public Button skillButton;
     public Button healButton;
+    public Button swapButton;
 
     public GameObject dialoguePrompt;
     public GameObject secondPrompt;
@@ -22,7 +23,7 @@ public class TutorialManager : MonoBehaviour
             button.interactable = false;
         }
 
-        attackButton.onClick.AddListener(OnAttackButton);
+        attackButton.onClick.AddListener(OnButtonPress);
     }
 
     public void SetUpSecondPrompt()
@@ -36,7 +37,7 @@ public class TutorialManager : MonoBehaviour
             button.interactable = false;
         }
 
-        healButton.onClick.AddListener(OnHealButton);
+        healButton.onClick.AddListener(OnButtonPress);
     }
 
     public void NextPrompt(GameObject nextPrompt)
@@ -44,20 +45,6 @@ public class TutorialManager : MonoBehaviour
         dialoguePrompt.SetActive(false);
         dialoguePrompt = nextPrompt;
         dialoguePrompt.SetActive(true);
-    }
-
-    public void OnAttackButton()
-    {
-        dialoguePrompt.SetActive(false);
-
-        LastPrompt();
-    }
-
-    public void OnHealButton()
-    {
-        dialoguePrompt.SetActive(false);
-
-        LastPrompt();
     }
 
     public void AttackPrompt(GameObject nextPrompt)
@@ -84,5 +71,26 @@ public class TutorialManager : MonoBehaviour
         {
             button.interactable = false;
         }
+    }
+
+    public void SwapWeaponPrompt()
+    {
+        dialoguePrompt.SetActive(true);
+
+        foreach (var button in buttonList)
+        {
+            button.interactable = false;
+        }
+
+        swapButton.interactable = true;
+
+        swapButton.onClick.AddListener(OnButtonPress);
+    }
+
+    public void OnButtonPress()
+    {
+        dialoguePrompt.SetActive(false);
+
+        LastPrompt();
     }
 }

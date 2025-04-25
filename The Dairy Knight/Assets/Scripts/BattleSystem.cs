@@ -59,21 +59,42 @@ public class BattleSystem : MonoBehaviour
         Vector3 startPosition = obj.position;
         float elapsedTime = 0f;
 
+        float bounceHeight = 0.2f;
+        float bounceFrequency = 6f;
+
+        //while (elapsedTime < duration)
+        //{
+        //    obj.position = Vector3.Lerp(startPosition, targetPosition,
+        //    elapsedTime / duration);
+        //    elapsedTime += Time.deltaTime;
+        //    yield return null;
+        //}
+
+        //obj.position = targetPosition;
+
         while (elapsedTime < duration)
         {
-            obj.position = Vector3.Lerp(startPosition, targetPosition,
-            elapsedTime / duration);
+            float t = elapsedTime / duration;
+            Vector3 flatPos = Vector3.Lerp(startPosition, targetPosition, t);
+
+            // Bounce using sine wave (continuous oscillation)
+            float bounce = Mathf.Sin(elapsedTime * bounceFrequency * Mathf.PI * 2f) * bounceHeight;
+            flatPos.y += bounce;
+
+            obj.position = flatPos;
+
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        obj.position = targetPosition;
+        
     }
 
     IEnumerator SetupBattle()
     {
         player = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = player.GetComponent<Unit>();
+        playerUnit.animator.SetBool("isSword", true); // Always start on Sword
 
         enemy = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemy.GetComponent<Unit>();
@@ -184,14 +205,19 @@ public class BattleSystem : MonoBehaviour
 
         ToggleButtonInteraction();
 
-        if(isTutorial && !firstPromptPlayed)
+        if(isTutorial && !firstPromptPlayed && PlayerData.level == 1)
         {
             tutorialManager.SetUpFirstPrompt();
             firstPromptPlayed = true;
-        } else if(isTutorial && !secondPromptPlayed)
+        } else if(isTutorial && !secondPromptPlayed && PlayerData.level == 1)
         {
             tutorialManager.SetUpSecondPrompt();
             secondPromptPlayed = true;
+        }
+        else if (isTutorial && !firstPromptPlayed && PlayerData.level == 2)
+        {
+            tutorialManager.SwapWeaponPrompt();
+            firstPromptPlayed = true;
         }
     }
 
@@ -273,7 +299,7 @@ public class BattleSystem : MonoBehaviour
 
     public string CheckWeaponType(Unit unit)
     {
-        Debug.Log(unit.unitName + " current is of weapon type: " + unit.weaponType.ToString());
+        //Debug.Log(unit.unitName + " current is of weapon type: " + unit.weaponType.ToString());
         return unit.weaponType.ToString();
     }
 
@@ -282,6 +308,8 @@ public class BattleSystem : MonoBehaviour
         Vector3 attackPosition = enemyBattleStation.position + Vector3.left * 2f; // Move slightly in front of the enemy
 
         yield return StartCoroutine(MoveToPosition(player.transform, attackPosition, 0.5f));
+
+        playerUnit.animator.SetTrigger("Attack");
 
         dialogueText.text = playerUnit.unitName + " strikes " + enemyUnit.unitName + " with their weapon!";
 
@@ -635,6 +663,10 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = playerUnit.unitName + " triumphed! You win!";
 
+            Vector3 playerEndPos = playerBattleStation.position + Vector3.right * 17f;
+
+            StartCoroutine(MoveToPosition(player.transform, playerEndPos, 2f));
+
             yield return new WaitForSeconds(2f);
 
 
@@ -659,7 +691,7 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            SceneManager.LoadScene("TheDairyKnight_LossScreen");
+            SceneManager.LoadScene("LevelSelect");
         }
     }
 }

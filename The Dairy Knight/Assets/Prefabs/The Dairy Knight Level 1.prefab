@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3340265343693024230
+--- !u!1 &2600960398421957153
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,24 +8,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4924613208055215046}
-  - component: {fileID: 933286515163228295}
-  - component: {fileID: 8085543983991594857}
-  - component: {fileID: 261457959781736515}
+  - component: {fileID: 7529192636132902443}
+  - component: {fileID: 5616579383648423740}
+  - component: {fileID: 566921935686402993}
+  - component: {fileID: -3050401543881901566}
   m_Layer: 0
-  m_Name: Scovillain Brute
+  m_Name: The Dairy Knight Level 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4924613208055215046
+--- !u!4 &7529192636132902443
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3340265343693024230}
+  m_GameObject: {fileID: 2600960398421957153}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -34,13 +34,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &933286515163228295
+--- !u!212 &5616579383648423740
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3340265343693024230}
+  m_GameObject: {fileID: 2600960398421957153}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1172331041
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: c5dca4209ec62554babbe96e35a8f43f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05e800df01401ed4199c3655c000ece0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,52 +86,52 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8085543983991594857
+--- !u!114 &566921935686402993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3340265343693024230}
+  m_GameObject: {fileID: 2600960398421957153}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3bb9a4a04a21ec144ae7d2002c9a5f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Scovillain Brute
+  unitName: Dairy Knight
   unitLevel: 1
-  damage: 8
-  maxHP: 20
-  currentHP: 20
-  maxMP: 20
-  currentMP: 20
+  damage: 5
+  maxHP: 40
+  currentHP: 40
+  maxMP: 25
+  currentMP: 25
   isDefending: 0
-  spriteRenderer: {fileID: 0}
-  playerSword: {fileID: 0}
-  playerAxe: {fileID: 0}
-  playerSpear: {fileID: 0}
-  animator: {fileID: 261457959781736515}
+  spriteRenderer: {fileID: 5616579383648423740}
+  playerSword: {fileID: 21300000, guid: 05e800df01401ed4199c3655c000ece0, type: 3}
+  playerAxe: {fileID: 21300000, guid: 1b4e0edb90224f7489f0934876031631, type: 3}
+  playerSpear: {fileID: 21300000, guid: a46958f2b082d8e4a9fbd70028121775, type: 3}
+  animator: {fileID: -3050401543881901566}
   isWeakened: 0
   isVulnerable: 0
   isCountering: 0
   weakenedDuration: 0
   vulnerableDuration: 0
   counteringDuration: 0
-  weaponType: 2
+  weaponType: 0
   unitAttack: {fileID: 0}
   playerBlock: {fileID: 0}
   playerHeal: {fileID: 0}
---- !u!95 &261457959781736515
+--- !u!95 &-3050401543881901566
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3340265343693024230}
+  m_GameObject: {fileID: 2600960398421957153}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 47c70242c49b98d4792c7c48216dafba, type: 2}
+  m_Controller: {fileID: 9100000, guid: 43b5e2a36dc2cf146aec0639f70f5e05, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

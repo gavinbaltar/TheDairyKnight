@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7529192636132902443}
   - component: {fileID: 5616579383648423740}
   - component: {fileID: 566921935686402993}
+  - component: {fileID: -3974951914651360858}
   m_Layer: 0
-  m_Name: The Dairy Knight
+  m_Name: The Dairy Knight Level 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,13 +99,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Dairy Knight
-  unitLevel: 1
-  damage: 5
-  maxHP: 40
-  currentHP: 40
-  maxMP: 25
-  currentMP: 25
+  unitLevel: 2
+  damage: 8
+  maxHP: 60
+  currentHP: 60
+  maxMP: 35
+  currentMP: 35
   isDefending: 0
+  spriteRenderer: {fileID: 5616579383648423740}
+  playerSword: {fileID: 21300000, guid: 05e800df01401ed4199c3655c000ece0, type: 3}
+  playerAxe: {fileID: 21300000, guid: 1b4e0edb90224f7489f0934876031631, type: 3}
+  playerSpear: {fileID: 21300000, guid: a46958f2b082d8e4a9fbd70028121775, type: 3}
+  animator: {fileID: -3974951914651360858}
   isWeakened: 0
   isVulnerable: 0
   isCountering: 0
@@ -115,3 +121,24 @@ MonoBehaviour:
   unitAttack: {fileID: 0}
   playerBlock: {fileID: 0}
   playerHeal: {fileID: 0}
+--- !u!95 &-3974951914651360858
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2600960398421957153}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 43b5e2a36dc2cf146aec0639f70f5e05, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

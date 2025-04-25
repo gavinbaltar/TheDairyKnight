@@ -151,14 +151,6 @@ public class Unit : MonoBehaviour
             switch (weaponType)
             {
                 case WeaponType.Sword:
-                    animator.SetBool("isAxe", false);
-                    animator.SetBool("isSword", false);
-                    animator.SetBool("isSpear", true);
-
-                    weaponType = WeaponType.Spear;
-                    break;
-
-                case WeaponType.Spear:
                     animator.SetBool("isAxe", true);
                     animator.SetBool("isSword", false);
                     animator.SetBool("isSpear", false);
@@ -166,12 +158,20 @@ public class Unit : MonoBehaviour
                     weaponType = WeaponType.Axe;
                     break;
 
-                case WeaponType.Axe:
+                case WeaponType.Spear:
                     animator.SetBool("isAxe", false);
                     animator.SetBool("isSword", true);
                     animator.SetBool("isSpear", false);
 
                     weaponType = WeaponType.Sword;
+                    break;
+
+                case WeaponType.Axe:
+                    animator.SetBool("isAxe", false);
+                    animator.SetBool("isSword", false);
+                    animator.SetBool("isSpear", true);
+
+                    weaponType = WeaponType.Spear;
                     break;
             }
         }

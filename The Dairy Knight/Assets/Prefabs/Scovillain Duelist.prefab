@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8085543983991594857}
   - component: {fileID: 792699860171194480}
   m_Layer: 0
-  m_Name: Scovillain Lancer
+  m_Name: Scovillain Duelist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 1172331041
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 05c2c9630a213034f9df19aafad00983, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c3c0d9f346a7384ca4fbb5a725950c6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,13 +98,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb9a4a04a21ec144ae7d2002c9a5f1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Scovillain Lancer
-  unitLevel: 2
+  unitName: Scovillain Duelist
+  unitLevel: 3
   damage: 10
-  maxHP: 60
-  currentHP: 60
-  maxMP: 30
-  currentMP: 30
+  maxHP: 70
+  currentHP: 70
+  maxMP: 40
+  currentMP: 40
   isDefending: 0
   spriteRenderer: {fileID: 0}
   playerSword: {fileID: 0}
@@ -131,7 +131,7 @@ Animator:
   m_GameObject: {fileID: 3340265343693024230}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 599f0f8556ea54f4fbe668bf879ee1dd, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8ec5bb4795c7c114487ef90764d90d84, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

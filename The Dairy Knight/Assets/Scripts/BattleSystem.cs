@@ -94,6 +94,7 @@ public class BattleSystem : MonoBehaviour
     {
         player = Instantiate(playerPrefab, playerBattleStation);
         playerUnit = player.GetComponent<Unit>();
+        playerUnit.animator.SetBool("isSword", true); // Always start on Sword
 
         enemy = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemy.GetComponent<Unit>();
@@ -196,6 +197,7 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
+        PlayerData.level = 2;
         playerUnit.isDefending = false;
 
         UpdateStatusDuration();
@@ -298,7 +300,7 @@ public class BattleSystem : MonoBehaviour
 
     public string CheckWeaponType(Unit unit)
     {
-        Debug.Log(unit.unitName + " current is of weapon type: " + unit.weaponType.ToString());
+        //Debug.Log(unit.unitName + " current is of weapon type: " + unit.weaponType.ToString());
         return unit.weaponType.ToString();
     }
 
@@ -307,6 +309,8 @@ public class BattleSystem : MonoBehaviour
         Vector3 attackPosition = enemyBattleStation.position + Vector3.left * 2f; // Move slightly in front of the enemy
 
         yield return StartCoroutine(MoveToPosition(player.transform, attackPosition, 0.5f));
+
+        playerUnit.animator.SetTrigger("Attack");
 
         dialogueText.text = playerUnit.unitName + " strikes " + enemyUnit.unitName + " with their weapon!";
 
@@ -688,7 +692,7 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
 
-            SceneManager.LoadScene("TheDairyKnight_LossScreen");
+            SceneManager.LoadScene("LevelSelect");
         }
     }
 }

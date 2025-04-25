@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -37,7 +38,8 @@ public class Unit : MonoBehaviour
     public Sprite playerSword;
     public Sprite playerAxe;
     public Sprite playerSpear;
-
+    public Animator animator;
+   
     [Header("Status Effects")]
     public bool isWeakened;
     public bool isVulnerable;
@@ -55,6 +57,21 @@ public class Unit : MonoBehaviour
     [SerializeField] public AudioClip playerBlock;
     [SerializeField] public AudioClip playerHeal;
 
+    private void Start()
+    {
+        switch(weaponType)
+        {
+            case WeaponType.Sword:
+                animator.SetBool("isSword", true);
+                break;
+            case WeaponType.Spear:
+                animator.SetBool("isSpear", true);
+                break;
+            case WeaponType.Axe:
+                animator.SetBool("isAxe", true);
+                break;
+        }
+    }
     public bool TakeDamage(int dmg)
     {
         currentHP -= dmg;
@@ -102,6 +119,7 @@ public class Unit : MonoBehaviour
     public bool SwapWeapon()
     {
         // Player has access to 1 weapon on level 1, 2 on level 2, and 3 on level 3
+        animator.ResetTrigger("Attack");
 
         if (unitLevel == 1)
         {
@@ -112,10 +130,18 @@ public class Unit : MonoBehaviour
         {
             if (weaponType == WeaponType.Sword)
             {
+                animator.SetBool("isAxe", true);
+                animator.SetBool("isSword", false);
+                animator.SetBool("isSpear", false);
+
                 weaponType = WeaponType.Axe;
             }
             else
             {
+                animator.SetBool("isAxe", false);
+                animator.SetBool("isSword", true);
+                animator.SetBool("isSpear", false);
+
                 weaponType = WeaponType.Sword;
             }
         }
@@ -125,14 +151,26 @@ public class Unit : MonoBehaviour
             switch (weaponType)
             {
                 case WeaponType.Sword:
+                    animator.SetBool("isAxe", false);
+                    animator.SetBool("isSword", false);
+                    animator.SetBool("isSpear", true);
+
                     weaponType = WeaponType.Spear;
                     break;
 
                 case WeaponType.Spear:
+                    animator.SetBool("isAxe", true);
+                    animator.SetBool("isSword", false);
+                    animator.SetBool("isSpear", false);
+
                     weaponType = WeaponType.Axe;
                     break;
 
                 case WeaponType.Axe:
+                    animator.SetBool("isAxe", false);
+                    animator.SetBool("isSword", true);
+                    animator.SetBool("isSpear", false);
+
                     weaponType = WeaponType.Sword;
                     break;
             }

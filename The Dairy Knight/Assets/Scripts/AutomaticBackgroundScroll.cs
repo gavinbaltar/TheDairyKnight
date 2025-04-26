@@ -1,7 +1,7 @@
 /* Name: Bryan Bong
  * Filename: AutomaticBackgroundScroll.cs
  * Description: A script to have the background scroll automatically over time.
- * Tutorial: https://www.youtube.com/watch?v=-6H-uYh80vc
+ * Tutorial: https://www.youtube.com/watch?v=Wz3nbQPYwss
  */
 
 using System.Collections;
@@ -11,12 +11,14 @@ using UnityEngine.UI;
 
 public class AutomaticBackgroundScroll : MonoBehaviour
 {
-    [SerializeField] private RawImage img;
-    [SerializeField] private float x, y;
+    public float speed;
+
+    [SerializeField]
+    private Renderer bgRenderer;
 
     private void Update()
     {
-        img.uvRect = new Rect(img.uvRect.position + new Vector2(x, y) * Time.deltaTime, img.uvRect.size);
+        bgRenderer.material.mainTextureOffset += new Vector2(speed * Time.deltaTime, 0);
     }
 
 }

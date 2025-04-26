@@ -26,7 +26,7 @@ public class LevelSelection : MonoBehaviour
             // After First Level Completed, Remove 1st Barrier
             player.transform.position = PlayerData.playerPosition;
             camera.transform.position = PlayerData.cameraPosition;
-            GameObject chili = GameObject.Find("ChiliLevel");
+            GameObject chili = GameObject.Find("FirstLevel");
             Destroy(chili);
             Destroy(GameObject.Find("FirstBound"));
             //WIP.gameObject.SetActive(true);
@@ -36,7 +36,7 @@ public class LevelSelection : MonoBehaviour
         {
             player.transform.position = PlayerData.playerPosition;
             camera.transform.position = PlayerData.cameraPosition;
-            GameObject jalapeno = GameObject.Find("JalapenoLevel");
+            GameObject jalapeno = GameObject.Find("SecondLevel");
             Destroy(jalapeno);
             Destroy(GameObject.Find("SecondBound"));
         }    

@@ -197,7 +197,6 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
-        PlayerData.level = 3;
         playerUnit.isDefending = false;
 
         UpdateStatusDuration();

@@ -101,8 +101,8 @@ MonoBehaviour:
   unitName: Scovillain Duelist
   unitLevel: 3
   damage: 15
-  maxHP: 40
-  currentHP: 40
+  maxHP: 20
+  currentHP: 20
   maxMP: 40
   currentMP: 40
   isDefending: 0
@@ -117,7 +117,7 @@ MonoBehaviour:
   weakenedDuration: 0
   vulnerableDuration: 0
   counteringDuration: 0
-  weaponType: 1
+  weaponType: 0
   unitAttack: {fileID: 0}
   playerBlock: {fileID: 0}
   playerHeal: {fileID: 0}

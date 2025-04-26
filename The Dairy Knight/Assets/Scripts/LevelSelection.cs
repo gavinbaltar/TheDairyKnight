@@ -15,7 +15,7 @@ using UnityEngine.UI;
 public class LevelSelection : MonoBehaviour
 {
     public GameObject player;
-    public GameObject camera;
+    public new GameObject camera;
     public GameObject WIP; //TODO: REMOVE FOR FINAL BUILD
 
     // Start is called before the first frame update

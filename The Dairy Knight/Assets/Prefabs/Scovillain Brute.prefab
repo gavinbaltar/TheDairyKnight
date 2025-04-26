@@ -100,7 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Scovillain Brute
   unitLevel: 1
-  damage: 8
+  damage: 7
   maxHP: 20
   currentHP: 20
   maxMP: 20

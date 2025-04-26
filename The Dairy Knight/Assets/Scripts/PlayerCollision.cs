@@ -20,6 +20,7 @@ public class PlayerCollision : MonoBehaviour
     public GameObject tutorial;
     public GameObject startPrompt1;
     public GameObject startPrompt2;
+    public GameObject startPrompt3; 
     //public GameObject startPrompt3;
     public float targetTime = 3.0f;
     bool timer;
@@ -74,6 +75,9 @@ public class PlayerCollision : MonoBehaviour
         } else if (PlayerData.level == 2)
         {
             startPrompt = startPrompt2;
+        } else if (PlayerData.level == 3)
+        {
+            startPrompt = startPrompt3;
         }
 
         if (collision.gameObject.tag == "Uncompleted")
@@ -87,6 +91,10 @@ public class PlayerCollision : MonoBehaviour
             } else if (collision.gameObject.name == "JalapenoLevel")
             {
                 PlayerData.sceneName = "TheDairyKnight_GAMMA2";
+                PlayerData.canSelect = true;
+            } else if (collision.gameObject.name == "HabaneroLevel")
+            {
+                PlayerData.sceneName = "TheDairyKnight_GAMMA3";
                 PlayerData.canSelect = true;
             }
 

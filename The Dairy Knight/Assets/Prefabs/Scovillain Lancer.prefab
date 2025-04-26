@@ -101,8 +101,8 @@ MonoBehaviour:
   unitName: Scovillain Lancer
   unitLevel: 2
   damage: 10
-  maxHP: 60
-  currentHP: 60
+  maxHP: 30
+  currentHP: 30
   maxMP: 30
   currentMP: 30
   isDefending: 0

@@ -197,6 +197,7 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
+        PlayerData.level = 3;
         playerUnit.isDefending = false;
 
         UpdateStatusDuration();
@@ -353,6 +354,48 @@ public class BattleSystem : MonoBehaviour
         {
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
+        }
+    }
+
+    // Same function, just doesn't go to enemy turn.
+    IEnumerator PlayerCounter()
+    {
+        Vector3 attackPosition = enemyBattleStation.position + Vector3.left * 2f; // Move slightly in front of the enemy
+
+        yield return StartCoroutine(MoveToPosition(player.transform, attackPosition, 0.5f));
+
+        playerUnit.animator.SetTrigger("Attack");
+
+        dialogueText.text = playerUnit.unitName + " counters " + enemyUnit.unitName + " with their weapon!";
+
+        yield return new WaitForSeconds(1.0f);
+
+        // Determine damage bonus or reduction if using wrong weapon type.
+        int damage = DetermineDamageBonus(playerUnit.damage, playerUnit, enemyUnit);
+
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+
+        bool isDead = enemyUnit.TakeDamage(damage);
+        enemyHUD.SetHP(enemyUnit.currentHP);
+
+        if (playerUnit.unitAttack)
+        {
+            SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, enemyBattleStation, 10f);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+
+        yield return StartCoroutine(MoveToPosition(player.transform, playerBattleStation.position, 0.5f));
+
+        yield return new WaitForSeconds(0.5f);
+
+        if (isDead)
+        {
+            state = BattleState.WON;
+            StartCoroutine(EndBattle());
         }
     }
 
@@ -659,6 +702,11 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
+            if(playerUnit.isCountering)
+            {
+                yield return StartCoroutine(PlayerCounter());
+            }
+
             state = BattleState.PLAYERTURN;
             PlayerTurn();
         }

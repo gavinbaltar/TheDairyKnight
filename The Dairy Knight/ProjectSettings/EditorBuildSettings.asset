@@ -6,15 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: 2671ef62961efc44498bd65bca3f9367
+  - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: 90dc405356b367c4295bc1e8e56890d0
-  - enabled: 0
-    path: Assets/Scenes/TheDairyKnight_BETA.unity
-    guid: a435f97bd6aa9aa4aa68ebd22c3c74c8
   - enabled: 1
     path: Assets/Scenes/TheDairyKnight_GAMMA1.unity
     guid: 60361ba3d05db8e4a822aa78380d0722
   - enabled: 1
     path: Assets/Scenes/TheDairyKnight_GAMMA2.unity
     guid: bd933f7a65947fc49afef86818d137c6
+  - enabled: 1
+    path: Assets/Scenes/TheDairyKnight_GAMMA3.unity
+    guid: 796971ba702188946ab21bca15f18c30
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: de31105a3bba1264ea88c61b26636d48
   m_configObjects: {}

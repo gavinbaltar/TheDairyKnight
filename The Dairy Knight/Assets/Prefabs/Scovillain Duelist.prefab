@@ -100,9 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Scovillain Duelist
   unitLevel: 3
-  damage: 10
-  maxHP: 70
-  currentHP: 70
+  damage: 15
+  maxHP: 40
+  currentHP: 40
   maxMP: 40
   currentMP: 40
   isDefending: 0

@@ -101,8 +101,8 @@ MonoBehaviour:
   unitName: Dairy Knight
   unitLevel: 2
   damage: 8
-  maxHP: 60
-  currentHP: 60
+  maxHP: 35
+  currentHP: 35
   maxMP: 35
   currentMP: 35
   isDefending: 0

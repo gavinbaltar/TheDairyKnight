@@ -4382,9 +4382,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0dddc8e856e169d45a3e25f1614dba5c, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -8826,6 +8826,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   tutorialManager: {fileID: 1784438716}
+  musicManager: {fileID: 754819273}
+  victoryTheme: {fileID: 8300000, guid: d234e99d7fbd26946b19d1ba42fa836d, type: 3}
   isTutorial: 1
   playerPrefab: {fileID: 2600960398421957153, guid: 214892b10859fb64089332db8edf9b9e, type: 3}
   enemyPrefab: {fileID: 3340265343693024230, guid: 81d0e739b755e8147bdcc10c1fef5392, type: 3}

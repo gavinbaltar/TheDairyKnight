@@ -20,6 +20,8 @@ public class BattleSystem : MonoBehaviour
 {
     public BattleState state;
     public TutorialManager tutorialManager;
+    public AudioSource musicManager;
+    public AudioClip victoryTheme;
     [SerializeField] public bool isTutorial;
     bool firstPromptPlayed;
     bool secondPromptPlayed;
@@ -133,6 +135,8 @@ public class BattleSystem : MonoBehaviour
             {
                 playerUnit.counteringDuration = 0;
                 playerUnit.isCountering = false;
+
+                playerUnit.playerParrySprite.SetActive(false);
             }
         }
 
@@ -144,17 +148,8 @@ public class BattleSystem : MonoBehaviour
             {
                 enemyUnit.weakenedDuration = 0;
                 enemyUnit.isWeakened = false;
-            }
-        }
 
-        if (enemyUnit.isVulnerable)
-        {
-            enemyUnit.vulnerableDuration -= 1;
-
-            if (enemyUnit.vulnerableDuration < 0)
-            {
-                enemyUnit.vulnerableDuration = 0;
-                enemyUnit.isVulnerable = false;
+                enemyUnit.enemyWeakenedSprite.SetActive(false);
             }
         }
     }
@@ -364,6 +359,11 @@ public class BattleSystem : MonoBehaviour
 
         yield return StartCoroutine(MoveToPosition(player.transform, attackPosition, 0.5f));
 
+        if (playerUnit.unitAttack)
+        {
+            SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, enemyBattleStation, 10f);
+        }
+
         playerUnit.animator.SetTrigger("Attack");
 
         dialogueText.text = playerUnit.unitName + " counters " + enemyUnit.unitName + " with their weapon!";
@@ -380,11 +380,6 @@ public class BattleSystem : MonoBehaviour
 
         bool isDead = enemyUnit.TakeDamage(damage);
         enemyHUD.SetHP(enemyUnit.currentHP);
-
-        if (playerUnit.unitAttack)
-        {
-            SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, enemyBattleStation, 10f);
-        }
 
         yield return new WaitForSeconds(0.5f);
 
@@ -459,6 +454,8 @@ public class BattleSystem : MonoBehaviour
             ToggleButtonInteraction();
 
             CheckWeaponType(playerUnit);
+
+            playerUnit.SetAudioClip();
         }
         else
         {
@@ -642,7 +639,13 @@ public class BattleSystem : MonoBehaviour
                 break;
         }
 
-        if (defender.isVulnerable) { damage *= 2; }
+        if (defender.isVulnerable) { 
+            damage *= 2; 
+            defender.vulnerableDuration = 0;
+            defender.isVulnerable = false;
+            defender.enemyVulnerableSprite.SetActive(false);
+        }
+
         if (attacker.isWeakened) { damage /= 2; }
 
         if(damage < 0)
@@ -665,11 +668,11 @@ public class BattleSystem : MonoBehaviour
 
         dialogueText.text = enemyUnit.unitName + " swings their weapon at " + playerUnit.unitName + "!";
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(.5f);
 
-        if (enemyUnit.unitAttack)
+        if (enemyUnit.enemyAttack)
         {
-            SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, playerBattleStation, 10f);
+            SoundFXManager.instance.PlaySoundSFXClip(enemyUnit.enemyAttack, playerBattleStation, 10f);
         }
 
         // Determine reduction & bonuses
@@ -722,6 +725,12 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.WON)
         {
+
+            musicManager.Stop();
+            musicManager.PlayOneShot(victoryTheme);
+
+            yield return new WaitForSeconds(3.5f);
+
             dialogueText.text = playerUnit.unitName + " triumphed! You win!";
 
             Vector3 playerEndPos = playerBattleStation.position + Vector3.right * 17f;

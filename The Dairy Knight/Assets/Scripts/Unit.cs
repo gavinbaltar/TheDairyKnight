@@ -38,11 +38,14 @@ public class Unit : MonoBehaviour
     public Sprite playerSword;
     public Sprite playerAxe;
     public Sprite playerSpear;
-    public GameObject playerHealSprite;
-    public GameObject playerBlockSprite;
     public Animator animator;
    
     [Header("Status Effects")]
+    public GameObject playerHealSprite;
+    public GameObject playerBlockSprite;
+    public GameObject playerParrySprite;
+    public GameObject enemyVulnerableSprite;
+    public GameObject enemyWeakenedSprite;
     public bool isWeakened;
     public bool isVulnerable;
     public bool isCountering;
@@ -55,7 +58,11 @@ public class Unit : MonoBehaviour
 
     // Audio clips
     [Header("Unit Audio SFX")]
-    [SerializeField] public AudioClip unitAttack;
+    [SerializeField] public AudioClip enemyAttack;
+    [SerializeField] public AudioClip unitAttack; // Set to sword attack on default, call swap in weapon swap.
+    [SerializeField] public AudioClip playerSwordAttack;
+    [SerializeField] public AudioClip playerAxeAttack;
+    [SerializeField] public AudioClip playerSpearAttack;
     [SerializeField] public AudioClip playerBlock;
     [SerializeField] public AudioClip playerHeal;
 
@@ -71,6 +78,22 @@ public class Unit : MonoBehaviour
                 break;
             case WeaponType.Axe:
                 animator.SetBool("isAxe", true);
+                break;
+        }
+    }
+
+    public void SetAudioClip()
+    {
+        switch (weaponType)
+        {
+            case WeaponType.Sword:
+                unitAttack = playerSwordAttack;
+                break;
+            case WeaponType.Spear:
+                unitAttack = playerSpearAttack;
+                break;
+            case WeaponType.Axe:
+                unitAttack = playerSwordAttack;
                 break;
         }
     }
@@ -224,6 +247,8 @@ public class Unit : MonoBehaviour
                 target.isWeakened = true;
                 target.weakenedDuration = 3;
 
+                target.enemyWeakenedSprite.SetActive(true);
+
                 break;
 
             case WeaponType.Spear:
@@ -232,12 +257,16 @@ public class Unit : MonoBehaviour
                 isCountering = true;
                 counteringDuration = 3;
 
+                target.playerParrySprite.SetActive(true);
+
                 break;
 
             case WeaponType.Axe:
 
                 target.isVulnerable = true;
                 target.vulnerableDuration = 1;
+
+                target.enemyVulnerableSprite.SetActive(true);
 
                 break;
         }

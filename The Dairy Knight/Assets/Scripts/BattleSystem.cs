@@ -198,6 +198,7 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn()
     {
         playerUnit.isDefending = false;
+        playerUnit.playerBlockSprite.SetActive(false);
 
         UpdateStatusDuration();
 
@@ -423,6 +424,8 @@ public class BattleSystem : MonoBehaviour
 
             yield return new WaitForSeconds(1.5f);
 
+            playerUnit.playerHealSprite.SetActive(false);
+
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
         }
@@ -480,6 +483,8 @@ public class BattleSystem : MonoBehaviour
             Vector3 attackPosition = enemyBattleStation.position + Vector3.left * 2f; // Move slightly in front of the enemy
 
             yield return StartCoroutine(MoveToPosition(player.transform, attackPosition, 0.5f));
+
+            playerUnit.animator.SetTrigger("Attack");
 
             switch (playerUnit.weaponType)
             {
@@ -656,11 +661,13 @@ public class BattleSystem : MonoBehaviour
         // Move slightly in front of the enemy
         yield return StartCoroutine(MoveToPosition(enemy.transform, attackPosition, 0.5f));
 
+        enemyUnit.animator.SetTrigger("Attack");
+
         dialogueText.text = enemyUnit.unitName + " swings their weapon at " + playerUnit.unitName + "!";
 
         yield return new WaitForSeconds(1.0f);
 
-        if (playerUnit.unitAttack)
+        if (enemyUnit.unitAttack)
         {
             SoundFXManager.instance.PlaySoundSFXClip(playerUnit.unitAttack, playerBattleStation, 10f);
         }

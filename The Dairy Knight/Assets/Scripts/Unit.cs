@@ -38,6 +38,8 @@ public class Unit : MonoBehaviour
     public Sprite playerSword;
     public Sprite playerAxe;
     public Sprite playerSpear;
+    public GameObject playerHealSprite;
+    public GameObject playerBlockSprite;
     public Animator animator;
    
     [Header("Status Effects")]
@@ -93,6 +95,8 @@ public class Unit : MonoBehaviour
             return false;
         }
 
+        playerHealSprite.SetActive(true);
+
         currentMP -= manaCost;
 
         currentHP += healAmount;
@@ -101,6 +105,7 @@ public class Unit : MonoBehaviour
         {
             currentHP = maxHP;
         }
+
 
         return true;
     }
@@ -114,6 +119,8 @@ public class Unit : MonoBehaviour
             currentMP = maxMP;
 
         isDefending = true;
+
+        playerBlockSprite.SetActive(true);
     }
 
     public bool SwapWeapon()

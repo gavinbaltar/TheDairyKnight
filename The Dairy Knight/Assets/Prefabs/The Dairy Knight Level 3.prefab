@@ -284,7 +284,7 @@ MonoBehaviour:
   animator: {fileID: -3974951914651360858}
   playerHealSprite: {fileID: 6983571615924000638}
   playerBlockSprite: {fileID: 442783748247316011}
-  playerParrySprite: {fileID: 0}
+  playerParrySprite: {fileID: 1082634478509357252}
   enemyVulnerableSprite: {fileID: 0}
   enemyWeakenedSprite: {fileID: 0}
   isWeakened: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
   unitAttack: {fileID: 8300000, guid: 722ae473e7603d948bf44cd268ddb215, type: 3}
   playerSwordAttack: {fileID: 8300000, guid: 722ae473e7603d948bf44cd268ddb215, type: 3}
   playerAxeAttack: {fileID: 8300000, guid: dd41ce8f2d9e2304b8da98e7fb745858, type: 3}
-  playerSpearAttack: {fileID: 0}
+  playerSpearAttack: {fileID: 8300000, guid: 13b0dfa98a5258349b7d2dd1034977c2, type: 3}
   playerBlock: {fileID: 8300000, guid: c0e7d0c25c71f204d8523910b1b20f05, type: 3}
   playerHeal: {fileID: 8300000, guid: 1dc968a1497c6f347a285cc8ca24b03f, type: 3}
 --- !u!95 &-3974951914651360858

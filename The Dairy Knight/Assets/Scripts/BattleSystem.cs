@@ -22,6 +22,7 @@ public class BattleSystem : MonoBehaviour
     public TutorialManager tutorialManager;
     public AudioSource musicManager;
     public AudioClip victoryTheme;
+    public AudioClip lossTheme;
     [SerializeField] public bool isTutorial;
     bool firstPromptPlayed;
     bool secondPromptPlayed;
@@ -355,6 +356,8 @@ public class BattleSystem : MonoBehaviour
     // Same function, just doesn't go to enemy turn.
     IEnumerator PlayerCounter()
     {
+        playerUnit.playerBlockSprite.SetActive(false);
+
         Vector3 attackPosition = enemyBattleStation.position + Vector3.left * 2f; // Move slightly in front of the enemy
 
         yield return StartCoroutine(MoveToPosition(player.transform, attackPosition, 0.5f));
@@ -384,6 +387,11 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         yield return StartCoroutine(MoveToPosition(player.transform, playerBattleStation.position, 0.5f));
+
+        if(playerUnit.isDefending)
+        {
+            playerUnit.playerBlockSprite.SetActive(true);
+        }
 
         yield return new WaitForSeconds(0.5f);
 
@@ -454,8 +462,6 @@ public class BattleSystem : MonoBehaviour
             ToggleButtonInteraction();
 
             CheckWeaponType(playerUnit);
-
-            playerUnit.SetAudioClip();
         }
         else
         {
@@ -549,22 +555,26 @@ public class BattleSystem : MonoBehaviour
     {
         if(playerUnit.WeaponSkillCheck(15))
         {
-            playerUnit.SetStatusEffect(enemyUnit);
-
             switch (playerUnit.weaponType)
             {
                 case WeaponType.Sword:
                     dialogueText.text = playerUnit.unitName + " ages the enemy like a fine cheese! They're weakened for 3 turns!";
+
+                    playerUnit.SetStatusEffect(enemyUnit);
 
                     break;
 
                 case WeaponType.Spear:
                     dialogueText.text = playerUnit.unitName + " prepares to counter the enemy's attacks for the next 3 turns!";
 
+                    playerUnit.SetStatusEffect(playerUnit);
+
                     break;
 
                 case WeaponType.Axe:
                     dialogueText.text = playerUnit.unitName + " chops some onions! They're vulnerable for the next attack!";
+
+                    playerUnit.SetStatusEffect(enemyUnit);
 
                     break;
             }
@@ -725,13 +735,14 @@ public class BattleSystem : MonoBehaviour
     {
         if (state == BattleState.WON)
         {
+            dialogueText.text = playerUnit.unitName + " triumphed! You win!";
 
             musicManager.Stop();
             musicManager.PlayOneShot(victoryTheme);
 
-            yield return new WaitForSeconds(3.5f);
+            playerUnit.playerParrySprite.SetActive(false);
 
-            dialogueText.text = playerUnit.unitName + " triumphed! You win!";
+            yield return new WaitForSeconds(3.5f);
 
             Vector3 playerEndPos = playerBattleStation.position + Vector3.right * 17f;
 
@@ -759,7 +770,10 @@ public class BattleSystem : MonoBehaviour
 
             dialogueText.text = "The Spice Syndicate defeated the brave Dairy Knight... You lose.";
 
-            yield return new WaitForSeconds(2f);
+            musicManager.Stop();
+            musicManager.PlayOneShot(lossTheme);
+
+            yield return new WaitForSeconds(3.5f);
 
             SceneManager.LoadScene("LevelSelect");
         }

@@ -98,7 +98,7 @@ public class BattleHUD : MonoBehaviour
                     break;
 
                 case WeaponType.Spear:
-                    skillTwo.text = "Parmigiano Riposte - 15 MP";
+                    skillTwo.text = "Parm Riposte - 15 MP";
                     break;
 
                 case WeaponType.Axe:

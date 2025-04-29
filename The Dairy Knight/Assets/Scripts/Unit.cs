@@ -93,7 +93,7 @@ public class Unit : MonoBehaviour
                 unitAttack = playerSpearAttack;
                 break;
             case WeaponType.Axe:
-                unitAttack = playerSwordAttack;
+                unitAttack = playerAxeAttack;
                 break;
         }
     }
@@ -221,6 +221,8 @@ public class Unit : MonoBehaviour
                 spriteRenderer.sprite = playerSpear;
                 break;
         }
+
+        SetAudioClip();
 
         return true;
     }

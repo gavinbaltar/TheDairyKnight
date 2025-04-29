@@ -125,7 +125,11 @@ MonoBehaviour:
   vulnerableDuration: 0
   counteringDuration: 0
   weaponType: 1
+  enemyAttack: {fileID: 8300000, guid: 13b0dfa98a5258349b7d2dd1034977c2, type: 3}
   unitAttack: {fileID: 0}
+  playerSwordAttack: {fileID: 0}
+  playerAxeAttack: {fileID: 0}
+  playerSpearAttack: {fileID: 0}
   playerBlock: {fileID: 0}
   playerHeal: {fileID: 0}
 --- !u!95 &792699860171194480

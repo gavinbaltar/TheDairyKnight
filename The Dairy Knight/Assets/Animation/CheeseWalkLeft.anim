@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CheeseWalk
+  m_Name: CheeseWalkLeft
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -46,13 +46,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1382010064, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
-    - time: 0.06666667
-      value: {fileID: -178030262, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
-    - time: 0.15
-      value: {fileID: 926115604, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
-    - time: 0.21666667
       value: {fileID: 2095286610, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
+    - time: 0.1
+      value: {fileID: -1382010064, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
+    - time: 0.2
+      value: {fileID: -178030262, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
+    - time: 0.3
+      value: {fileID: 926115604, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -84,10 +84,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
+    - {fileID: 2095286610, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
     - {fileID: -1382010064, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
     - {fileID: -178030262, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
     - {fileID: 926115604, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
-    - {fileID: 2095286610, guid: 2231bf3cdbc384f4b9e64b1d464fd5ab, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

@@ -58,6 +58,9 @@ TagManager:
   - name: BehindPlayer
     uniqueID: 1244716597
     locked: 0
+  - name: Important
+    uniqueID: 1661965453
+    locked: 0
   - name: Player
     uniqueID: 1172331041
     locked: 0

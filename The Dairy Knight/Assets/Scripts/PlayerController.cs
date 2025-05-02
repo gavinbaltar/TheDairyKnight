@@ -1,6 +1,6 @@
 /*
 Bryan Bong
-Midterm
+Midterm and Final
 Filename: PlayerController.cs
 Description: This script handles the player character's movement and control scheme. It also
 determines if it is grounded in order to allow for jumping. Also <ESC> functionality.
@@ -20,10 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpSpeed;
     private bool onGround;
     private Rigidbody2D body;
-
-    // Variables for spells and instructions
-    public Text instructions;
-
     // Start is called before the first frame update
     void Start()
     {   
@@ -71,9 +67,6 @@ public class PlayerController : MonoBehaviour
             // Allows for Jumping if the character is not in the air
             body.velocity = new Vector2(body.velocity.x, jumpSpeed);
             onGround = false;
-        } else if (Input.GetKeyDown(KeyCode.C)) {
-            // Shows/Hides Instructions 
-            //instructions.gameObject.SetActive(!instructions.gameObject.active);
-        }
+        } 
     }
 }

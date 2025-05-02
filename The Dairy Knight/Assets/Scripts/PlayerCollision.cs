@@ -22,7 +22,7 @@ public class PlayerCollision : MonoBehaviour
     public GameObject startPrompt2;
     public GameObject startPrompt3; 
     //public GameObject startPrompt3;
-    public float targetTime = 3.0f;
+    public float targetTime = 4.0f;
     bool timer;
 
     // Start is called before the first frame update

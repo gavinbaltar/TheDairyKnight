@@ -4,7 +4,9 @@ Final
 Filename: PlayerCollision.cs
 Description: Script to display a message if player collides with one of the borders or boundaries.
 Will also detect if the player collides with a triggers around the level selection to show the text
-and works with LevelSelection.cs to see if the user can enter the E key.
+and works with LevelSelection.cs to see if the user can enter the E key. This script allows the user to
+press E in order to start a level scene. Additionally, this script will deactivate the initial tutorial
+after the player passes through a trigger near the start.
 */
 
 using System.Collections;

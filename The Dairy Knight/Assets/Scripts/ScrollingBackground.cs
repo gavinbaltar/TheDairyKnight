@@ -1,6 +1,6 @@
 /*
 Bryan Bong
-Final (From Midterm)
+Final - From Midterm
 Filename: ScrollingBackground.cs
 Description: This script handles the behavior of the background scene. First off, it adds a parallax
 effect, making it so that the background moves alongside the character in order to simulate travel.

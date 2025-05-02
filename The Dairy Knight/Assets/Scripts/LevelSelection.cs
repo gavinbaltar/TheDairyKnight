@@ -2,7 +2,9 @@
 Bryan Bong
 Final
 Filename: LevelSelection.cs
-Description: Script to manage level selection and which levels can be interacted with. Saves progress.
+Description: Script to manage level selection and which levels can be interacted with.
+Saves progress using static variables from PlayerData.cs. This script will update the level
+according to the player's level, such as by removing barriers or the previous level's interactable.
 */
 
 using JetBrains.Annotations;

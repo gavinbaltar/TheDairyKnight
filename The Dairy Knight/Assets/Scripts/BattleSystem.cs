@@ -759,7 +759,10 @@ public class BattleSystem : MonoBehaviour
                 SceneManager.LoadScene("LevelSelect");
             }
             else
-            {
+            {   
+                // Loads Win Screen and Resets the Game
+                PlayerData.level = 1;
+                PlayerData.canSelect = false;
                 SceneManager.LoadScene("WinScreen");
             }
 

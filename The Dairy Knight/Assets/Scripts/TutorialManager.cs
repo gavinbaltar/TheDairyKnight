@@ -43,16 +43,19 @@ public class TutorialManager : MonoBehaviour
 
     public void SetUpSecondPrompt()
     {
-        dialoguePrompt = secondPrompt;
-
-        dialoguePrompt.SetActive(true);
-
-        foreach (var button in buttonList)
+        if (secondPrompt)
         {
-            button.interactable = false;
-        }
+            dialoguePrompt = secondPrompt;
 
-        healButton.onClick.AddListener(OnButtonPress);
+            dialoguePrompt.SetActive(true);
+
+            foreach (var button in buttonList)
+            {
+                button.interactable = false;
+            }
+
+            healButton.onClick.AddListener(OnButtonPress);
+        }
     }
 
     public void NextPrompt(GameObject nextPrompt)

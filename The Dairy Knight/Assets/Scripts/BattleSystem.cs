@@ -7,8 +7,8 @@ using UnityEngine.UI;
 using static Unit;
 
 /*
-    Assignment: Mid
-    Written by: Gavin Baltar created by following tutorial 1
+    Assignment: Final - updated from Midterm
+    Written by: Gavin Baltar created by following tutorial: https://youtu.be/_1pz_ohupPs?si=Hh-A7G3DvnEBXGrO
     Filename: BattleSystem.cs
 
     Description: This script manages the game state of the minigame by keeping track of player and enemy turns. It handles managing the entire game state by tracking turns and actions. 
@@ -404,7 +404,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerHeal()
     {
-        bool isHealed = playerUnit.Heal(5, 2);
+        bool isHealed = playerUnit.Heal(5, 5);
 
         if (!isHealed)
         {

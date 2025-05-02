@@ -8,8 +8,8 @@ using static Unit;
 using static UnityEngine.UI.CanvasScaler;
 
 /*
-    Assignment: Mid
-    Written by: Gavin Baltar created by following tutorial 1
+    Assignment: Final - updated from Midterm
+    Written by: Gavin Baltar created by following tutorial: https://youtu.be/_1pz_ohupPs?si=Hh-A7G3DvnEBXGrO
     Filename: BattleHUD.cs
     Description: This script updates the text in the UI display of the Gameplay
         scene and is called by BattleSystem.cs.

@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpSpeed;
     private bool onGround;
     private Rigidbody2D body;
+    public Animator animator;
+
+    private void Awake(){}
+
     // Start is called before the first frame update
     void Start()
     {   
@@ -54,9 +58,19 @@ public class PlayerController : MonoBehaviour
 
         // Flips Player Sprite if needed
         if (horizontalInput > 0.01f)
+        {
             transform.localScale = Vector3.one;
+            animator.Play("CheeseWalkRight");
+            
+        }
         else if (horizontalInput < -0.01f)
+        {
             transform.localScale = new Vector3(-1, 1, 1);
+            animator.Play("CheeseWalkLeft");
+        } else
+        {
+            animator.Play("Idle");
+        }
 
         if (Input.GetKey(KeyCode.Escape))
         {

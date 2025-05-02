@@ -404,7 +404,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerHeal()
     {
-        bool isHealed = playerUnit.Heal(5, 2);
+        bool isHealed = playerUnit.Heal(5, 5);
 
         if (!isHealed)
         {

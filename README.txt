@@ -1,7 +1,7 @@
 =================================
 The Dairy Knight and The Pizza of Unity
 =================================
-by UF StudentEnDEVor
+by StudentEnDEVor
 05/02/2025
 
 -MOVEMENT AND CONTROLS-
@@ -12,7 +12,9 @@ ESC: Quit the game
 Mouse: Left click menu buttons
 
 Level Select Controls
-WASD: Move
+A: Move left
+D: Move right
+W: Jump
 E: Interact with battle selection
 
 Battle System Controls
@@ -34,6 +36,8 @@ Main Menu
 Game should reset once you beat Battle 3 allowing you to play through the game again, however to ensure no loss of progress plan one sitting to beat the entire game.
 
 Losing a battle returns you to the level select for you to try the battle again.
+
+If you walk too far past the battle podiums, you may need to walk back and then collide again with it to get the trigger to interact
 
 -GAME BREAKING BUGS-
 No known game breaking bugs, the game should run as intended.

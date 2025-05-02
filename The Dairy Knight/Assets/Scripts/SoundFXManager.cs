@@ -2,8 +2,8 @@ using UnityEngine;
 
 /*
 
-    Assignment: Mid
-    Written by: Gavin Baltar created by following tutorial 2
+    Assignment: Final - also used in Midterm
+    Written by: Gavin Baltar created by following tutorial: https://www.youtube.com/watch?v=9dYDBomQpBQ
     Filename: SoundFXManager.cs
     Description: This script manages the audio of the gameplay scene and is responsible for playing specific audio clips at a given location. Utilized by
         BattleSystem.cs.

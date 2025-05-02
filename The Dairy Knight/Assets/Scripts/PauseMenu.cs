@@ -1,8 +1,8 @@
 using UnityEngine;
 
 /*
-    Assignment: Mid
-    Written by: Gavin Baltar created by following tutorial 3
+    Assignment: Final - also used in Midterm
+    Written by: Gavin Baltar created by following tutorial: https://www.youtube.com/watch?v=9dYDBomQpBQ
     Filename: PauseMenu.cs
 
     Description: This script takes in user input for the TAB key in order to pausethe game. This brings up a menu and freezes the game's time by setting time scaleto 0. 

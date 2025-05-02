@@ -5,8 +5,8 @@ using UnityEngine;
 
 /*
 
-     Assignment: Mid
-     Written by: Gavin Baltar created by following tutorial 1
+     Assignment: Final - updated from Midterm
+     Written by: Gavin Baltar created by following tutorial: https://youtu.be/_1pz_ohupPs?si=Hh-A7G3DvnEBXGrO
      Filename: Unit.cs 
 
      Description: This script stores the stats and functionality of units in the game. Manages TakeDamage, Defend, and Heal.

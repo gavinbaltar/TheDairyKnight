@@ -1,6 +1,7 @@
 /* Name: Bryan Bong
+ * Final
  * Filename: AutomaticBackgroundScroll.cs
- * Description: A script to have the background scroll automatically over time.
+ * Description: A script to have the background scroll automatically over time by manipulating the raw image.
  * Tutorial: https://www.youtube.com/watch?v=-6H-uYh80vc
  */
 

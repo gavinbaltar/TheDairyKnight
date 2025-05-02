@@ -1,9 +1,10 @@
 /*
 Bryan Bong
-Midterm
+Final - Updated from Midterm
 Filename: HoveringCollectible.cs
-Description: From the Midterm, repurposed for general animation. 
-Original DESC: This script's creates a hover "animation" for the collectibles. Also used for the portal.
+Description: This script as a hovering motion to sprites using sinusoidal functions by oscillating it
+from a point of origin. This script was originally used in the final for collectibles, but was repurposed for
+the animation it added, minus the collectible functionality.
 Tutorial: https://www.youtube.com/watch?v=C7sPsksH4JM
 */
 

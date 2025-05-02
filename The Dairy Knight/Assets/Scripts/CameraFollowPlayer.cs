@@ -1,6 +1,6 @@
 /*
 Bryan Bong
-Midterm
+Final - Updated from Midterm.
 Filename: CameraFollowPlayer.cs
 Description: This script makes it so that the camera follows the player character at all times.
 Tutorial: https://www.youtube.com/watch?v=FXqwunFQuao

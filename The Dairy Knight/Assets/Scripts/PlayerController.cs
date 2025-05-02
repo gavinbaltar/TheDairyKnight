@@ -1,12 +1,14 @@
 /*
 Bryan Bong
-Midterm and Final
+Final - Updated from Midterm
 Filename: PlayerController.cs
 Description: This script handles the player character's movement and control scheme. It also
-determines if it is grounded in order to allow for jumping. Also <ESC> functionality.
+determines if it is grounded in order to allow for jumping. Also <ESC> functionality. 
+Furthermore, it also plays an animation when the player is moving left or right.
 Tutorials:
 https://www.youtube.com/watch?v=TcranVQUQ5U&list=PLgOEwFbvGm5o8hayFB6skAfa8Z-mw4dPV
 https://www.youtube.com/watch?v=_UBpkdKlJzE&list=PLgOEwFbvGm5o8hayFB6skAfa8Z-mw4dPV&index=3
+https://www.youtube.com/watch?v=rrzM1KPAubc
 */
 using System.Collections;
 using System.Collections.Generic;

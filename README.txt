@@ -43,6 +43,6 @@ If you walk too far past the battle podiums, you may need to walk back and then 
 No known game breaking bugs, the game should run as intended.
 Audio is a little out of sync for the player for whatever reason, we weren't able to fix this but it should be a minor issue.
 
-## Team
+-TEAM-
 - Gavin Baltar: gameplay programmer
 - Bryan Bong: 2D character artist and level select programmer

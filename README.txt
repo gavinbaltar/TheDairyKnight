@@ -39,10 +39,10 @@ Losing a battle returns you to the level select for you to try the battle again.
 
 If you walk too far past the battle podiums, you may need to walk back and then collide again with it to get the trigger to interact
 
-# Team
-- Gavin Baltar: gameplay programmer
-- Bryan Bong: 2D character artist and level select programmer
-
 -GAME BREAKING BUGS-
 No known game breaking bugs, the game should run as intended.
 Audio is a little out of sync for the player for whatever reason, we weren't able to fix this but it should be a minor issue.
+
+## Team
+- Gavin Baltar: gameplay programmer
+- Bryan Bong: 2D character artist and level select programmer
